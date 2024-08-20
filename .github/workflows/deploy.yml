@@ -15,17 +15,17 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with: 
-          version: 8
+          version: 9
 
       - name: Setup NodeJs
         uses: actions/setup-node@v4
         with: 
-          node-version: 18
+          node-version: 20
           cache: 'pnpm'
 
       - name: Install Dependencies and Build
         run: |
-          pnpm install
+          pnpm install --no-frozen-lockfile
           pnpm run build
           
       - name: Deploy
