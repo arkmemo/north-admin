@@ -48,13 +48,14 @@ const handleTabRemove = (path: TabPaneName) => {
 }
 
 :deep(.el-tabs__item.is-active) {
-	color: #9980fa;
+	color: var(--north-bg-color);
 }
 :deep(.el-tabs__item:hover) {
-	color: #9980fa;
+	color: var(--north-bg-color);
+	opacity: 0.8;
 }
 
 :deep(.el-tabs__active-bar) {
-	background-color: #9980fa;
+	background-color: var(--north-bg-color);
 }
 </style>

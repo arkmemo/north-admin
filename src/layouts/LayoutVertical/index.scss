@@ -1,9 +1,9 @@
 .layout-container {
-	@apply: bg-#9980FA;
+	@apply: bg-[--north-bg-color];
 }
 
 .layout-aside {
-	@apply: bg-#9980FA h-full transition-all;
+	@apply: bg-[--north-bg-color] h-full transition-all;
 }
 
 .layout-container_sub {

@@ -18,10 +18,12 @@ const handleClickChangeLayoutMode = (mode: string) => {
 		<div grid="~ cols-2" gap-20px shadow="hover">
 			<el-card class="layout-container p-8px cursor-pointer" @click="handleClickChangeLayoutMode('vertical')">
 				<div h-full flex-between gap-8px :class="[store.isVertical() ? 'layout-active' : '']">
-					<div class="h-full w-26px bg-#9980FA rounded-6px"></div>
+					<div class="h-full w-26px bg-[var(--north-bg-color)] rounded-6px"></div>
 					<div h-full w-full>
-						<div class="h-16px w-full bg-#9980FAcc rounded-6px"></div>
-						<div class="h-[calc(100%-26px)] mt-8px w-full bg-#9980FA30 rounded-6px"></div>
+						<div class="h-16px w-full bg-[var(--north-bg-color)] opacity-80 rounded-6px"></div>
+						<div
+							class="h-[calc(100%-26px)] mt-8px w-full bg-[var(--north-bg-color)] opacity-30 rounded-6px"
+						></div>
 					</div>
 				</div>
 			</el-card>
@@ -31,10 +33,25 @@ const handleClickChangeLayoutMode = (mode: string) => {
 				@click="handleClickChangeLayoutMode('horizontal')"
 			>
 				<div h-full gap-8px :class="[!store.isVertical() ? 'layout-active' : '']">
-					<div class="w-full h-20px bg-#9980FA rounded-6px"></div>
-					<div class="h-[calc(100%-30px)] mt-8px w-full bg-#9980FA30 rounded-6px"></div>
+					<div class="w-full h-20px bg-[var(--north-bg-color)] rounded-6px"></div>
+					<div
+						class="h-[calc(100%-30px)] mt-8px w-full bg-[var(--north-bg-color)] opacity-30 rounded-6px"
+					></div>
 				</div>
 			</el-card>
+		</div>
+
+		<div pt-20px>
+			<el-divider class="divider" content-position="center">
+				<div flex-center>
+					<Icon icon="fluent:layout-column-two-split-right-20-filled" text-20px></Icon>
+					<span ml-6px>主题样式</span>
+				</div>
+			</el-divider>
+			<div flex-between>
+				<div>主题颜色</div>
+				<el-color-picker v-model="store.state.sideBarColor" />
+			</div>
 		</div>
 	</el-drawer>
 </template>

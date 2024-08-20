@@ -12,5 +12,12 @@ import Tabs from '../../tabs/index.vue'
 </template>
 
 <style lang="scss" scoped>
-@import '../../index.scss';
+.layout-container_sub {
+	@apply: w-full rounded-10px;
+	--at-apply: bg-#F9F8FD dark-bg-#141414;
+
+	&-main {
+		height: calc(100vh - 158px);
+	}
+}
 </style>

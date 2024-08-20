@@ -1,3 +1,4 @@
+import { ScssVariableEnum } from '~/enum/scssVariableEnum'
 import { useTheme } from '~/hooks'
 
 export const $globalSettingId = 'globalSettingStore'
@@ -40,6 +41,14 @@ export const useGlobalSettingStore = defineStore(
 
 		// 菜单是否垂直布局
 		const isVertical = () => state.layoutMode === 'vertical'
+
+		watch(
+			() => state.sideBarColor,
+			(val: string) => {
+				console.log('sideBarColor', val)
+				document.documentElement.style.setProperty(ScssVariableEnum.BG_COLOR, val)
+			},
+		)
 
 		return {
 			state,

@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import '~/style'
+import '~/styles'
 import App from './App.vue'
 import { Icon } from '@iconify/vue'
 import { router } from '~/router'

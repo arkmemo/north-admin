@@ -24,9 +24,6 @@ export default defineConfig(({ mode }: ConfigEnv) => {
 			port: 6684,
 			open: true,
 		},
-		// esbuild: {
-		// 	pure: ['console.log', 'debugger'],
-		// },
 		optimizeDeps: {
 			include: [
 				'vue',
@@ -38,6 +35,13 @@ export default defineConfig(({ mode }: ConfigEnv) => {
 				'dayjs',
 				...preloadElementPlus(),
 			],
+		},
+		css: {
+			preprocessorOptions: {
+				scss: {
+					additionalData: `@import "~/styles/variable.scss";`,
+				},
+			},
 		},
 		build: {
 			outDir: 'dist',
