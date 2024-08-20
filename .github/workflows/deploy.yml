@@ -26,7 +26,7 @@ jobs:
       - name: Install Dependencies and Build
         run: |
           npm install
-          npm run build
+          npm run only-build
           
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
