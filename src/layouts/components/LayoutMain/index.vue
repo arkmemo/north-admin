@@ -1,9 +1,9 @@
 <script setup lang="ts">
-// import Tabs from '../../tabs/index.vue'
+import Tabs from '../../tabs/index.vue'
 </script>
 
 <template>
-	<!-- <Tabs></Tabs> -->
+	<Tabs></Tabs>
 	<el-main class="layout-container_sub-main">
 		<el-card>
 			<router-view></router-view>
