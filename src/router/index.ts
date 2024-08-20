@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import { getDynamicRouter } from './routes/dynamicRouter.ts'
 import { staticRouter } from '~/router/routes/staticRouter.ts'
 
 export const router = createRouter({
-	history: createWebHistory('/north-admin/'),
+	history: createWebHashHistory('/north-admin/'),
 	routes: [...staticRouter, ...getDynamicRouter],
 })
