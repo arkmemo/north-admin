@@ -1,18 +1,18 @@
 <script setup lang="tsx">
 import LayoutLogo from './components/LayoutLogo/index.vue'
-import LayoutMenu from './components/LayoutMenu/index.vue'
+// import LayoutMenu from './components/LayoutMenu/index.vue'
 import LayoutHeader from './components/LayoutHeader/index.vue'
 import LayoutMain from './components/LayoutMain/index.vue'
 import SettingDrawer from './settingDrawer/index.vue'
-import { getDynamicRouter } from '~/router/routes/dynamicRouter.ts'
-import { routesToMenu } from '~/router/helper/transformHelp'
+// import { getDynamicRouter } from '~/router/routes/dynamicRouter.ts'
+// import { routesToMenu } from '~/router/helper/transformHelp'
 import { useGlobalSettingStore } from '~/stores'
 
 // const dynamicRouter = getDynamicRouter
-const menu = routesToMenu(getDynamicRouter)
-const route = useRoute()
+// const menu = routesToMenu(getDynamicRouter)
+// const route = useRoute()
 
-const activeRoute = ref(route.path)
+// const activeRoute = ref(route.path)
 
 const globalSettingStore = useGlobalSettingStore()
 const collapsed = computed(() => globalSettingStore.state.collapsed)
@@ -30,7 +30,7 @@ const layoutAsideBarStyle = computed(() => {
 			<LayoutLogo></LayoutLogo>
 
 			<el-scrollbar height="calc(100vh - 120px)" :class="[!collapsed ? 'pr-6px' : '']">
-				<el-menu
+				<!-- <el-menu
 					:router="false"
 					:default-active="activeRoute"
 					:unique-opened="true"
@@ -38,7 +38,7 @@ const layoutAsideBarStyle = computed(() => {
 					:collapse="collapsed"
 				>
 					<layout-menu :menu-list="menu"></layout-menu>
-				</el-menu>
+				</el-menu> -->
 			</el-scrollbar>
 
 			<div px-10px>
