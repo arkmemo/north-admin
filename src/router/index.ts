@@ -4,5 +4,5 @@ import { staticRouter } from '~/router/routes/staticRouter.ts'
 
 export const router = createRouter({
 	history: createWebHistory(),
-	routes: [...staticRouter, ...getDynamicRouter()],
+	routes: [...staticRouter, ...getDynamicRouter],
 })

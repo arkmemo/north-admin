@@ -3,4 +3,4 @@ import { moduleToRoutes } from '~/router/helper/transformHelp.ts'
 
 const routerModules = import.meta.glob('./modules/*.ts', { eager: true })
 
-export const getDynamicRouter = () => moduleToRoutes(routerModules)
+export const getDynamicRouter = moduleToRoutes(routerModules)

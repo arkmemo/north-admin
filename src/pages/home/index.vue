@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { fetchWeather } from '~/api/modules'
+// import { fetchWeather } from '~/api/modules'
 
-fetchWeather({
-	location: '116.41,39.92',
-}).then((res) => {
-	console.log(res.data.feelsLike, 'res')
-})
+// fetchWeather({
+// 	location: '116.41,39.92',
+// }).then((res) => {
+// 	console.log(res.data.feelsLike, 'res')
+// })
 </script>
 
 <template>

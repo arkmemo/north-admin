@@ -8,8 +8,8 @@ import { getDynamicRouter } from '~/router/routes/dynamicRouter.ts'
 import { routesToMenu } from '~/router/helper/transformHelp'
 import { useGlobalSettingStore } from '~/stores'
 
-const dynamicRouter = await getDynamicRouter()
-const menu = routesToMenu(dynamicRouter)
+// const dynamicRouter = getDynamicRouter
+const menu = routesToMenu(getDynamicRouter)
 const route = useRoute()
 
 const activeRoute = ref(route.path)
