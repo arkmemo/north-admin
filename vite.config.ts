@@ -11,7 +11,8 @@ export default defineConfig(({ mode }: ConfigEnv) => {
 
 	return {
 		// base: '/NorthAdmin/',
-		base: env.VITE_ENV === 'development' ? '/' : '/north-admin/',
+		// base: env.VITE_ENV === 'development' ? '/' : '/north-admin/',
+		base: '/',
 		resolve: {
 			alias: {
 				'~': resolve(__dirname, 'src'),

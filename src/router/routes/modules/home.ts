@@ -4,7 +4,7 @@ import Layout from '~/layouts/index.vue'
 export const HomeRoutes: RouteRecordRaw[] = [
 	{
 		path: '/',
-		redirect: '/home',
+		redirect: 'home',
 		component: Layout,
 		meta: {
 			title: '首页1',
