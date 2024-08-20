@@ -1,0 +1,59 @@
+.el-menu {
+	background-color: transparent !important;
+	border: none !important;
+
+	.el-menu-item,
+	.el-sub-menu__title {
+		color: #ddd;
+		border-radius: 2px;
+		user-select: none;
+		position: relative;
+
+		&.is-active {
+			background-color: #333080;
+			color: #fff;
+			// 放一个小竖条在最右边
+			&::after {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 8px;
+				height: 70%;
+				border-radius: 0 10px 10px 0;
+				background-color: #e0defb;
+			}
+		}
+
+		&:hover {
+			background-color: #42408b;
+			color: #fff;
+		}
+	}
+}
+
+.el-menu--collapse .el-sub-menu.is-active .el-sub-menu__title {
+	background-color: #333080;
+	color: #fff !important;
+}
+
+.el-menu--popup-container {
+	.el-menu--popup {
+		background-color: #9980fa !important;
+		padding: 0;
+	}
+}
+
+.custom-drawer {
+	.el-drawer__header {
+		@apply: py-16px  mb-0;
+		border-bottom: 1px solid #aaaaaa66;
+	}
+}
+
+.el-tabs {
+	.el-tabs__header {
+		margin-bottom: 0;
+	}
+}
