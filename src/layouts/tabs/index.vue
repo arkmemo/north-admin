@@ -1,6 +1,5 @@
 <script setup lang="tsx">
 import { TabPaneName } from 'element-plus'
-import { useTabsStore } from '~/stores'
 
 const route = useRoute()
 const currentTab = ref(route.path)
