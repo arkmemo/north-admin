@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Tabs from '../../tabs/index.vue'
+// import Tabs from '../../tabs/index.vue'
 </script>
 
 <template>
