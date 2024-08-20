@@ -79,6 +79,11 @@
     "watch": true,
     "watchEffect": true,
     "watchPostEffect": true,
-    "watchSyncEffect": true
+    "watchSyncEffect": true,
+    "ElMessage": true,
+    "$globalSettingId": true,
+    "stores": true,
+    "useGlobalSettingStore": true,
+    "useTabsStore": true
   }
 }
