@@ -31,8 +31,8 @@ export const useTabsStore = defineStore(
 
 			const index = tabsList.value.findIndex((item) => item.path === path)
 			const nextTab = tabsList.value[index + 1] || tabsList.value[index - 1]
-			// router.push(nextTab.path)
-			// tabsList.value = tabsList.value.filter((item) => item.path !== path)
+			router.push(nextTab.path)
+			tabsList.value = tabsList.value.filter((item) => item.path !== path)
 		}
 
 		return {

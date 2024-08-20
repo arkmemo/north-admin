@@ -8,13 +8,19 @@ export const useGlobalSettingStore = defineStore(
 	() => {
 		const state = reactive({
 			// 打开设置面板
-			openSettingPanel: false,
+			openSettingPanel: true,
 
 			// 菜单栏宽度
 			sideBarWidth: 220,
 
 			// 菜单栏是否收起
 			collapsed: true,
+
+			// 布局方式
+			layoutMode: 'vertical', // horizontal | vertical
+
+			// 侧边栏颜色
+			sideBarColor: '#9980FA',
 
 			// 是否显示右侧菜单
 			rightSideBar: false,
@@ -32,8 +38,12 @@ export const useGlobalSettingStore = defineStore(
 			hasFooter: true,
 		})
 
+		// 菜单是否垂直布局
+		const isVertical = () => state.layoutMode === 'vertical'
+
 		return {
 			state,
+			isVertical,
 		}
 	},
 	{

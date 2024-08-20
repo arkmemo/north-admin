@@ -23,8 +23,8 @@ const layoutLogoStyle = computed(() => {
 			whitespace-nowrap
 			transition-delay-100
 			overflow-hidden
-			text-white
-			dark:text-black
+			dark:text-white
+			text-black
 			:style="layoutLogoStyle"
 		>
 			North Admin
@@ -34,7 +34,7 @@ const layoutLogoStyle = computed(() => {
 
 <style scoped lang="scss">
 .layout-logo {
-	@apply: flex-center h-56px mb-10px;
-	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.24);
+	@apply: flex-center h-56px;
+	// box-shadow: 0 2px 3px rgba(0, 0, 0, 0.24);
 }
 </style>
