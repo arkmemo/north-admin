@@ -7,7 +7,7 @@ const collapsed = computed(() => globalSettingStore.state.collapsed)
 // 通过collapsed的值来判断是否展示Logo的宽度
 const layoutLogoStyle = computed(() => {
 	return {
-		width: collapsed.value ? '0' : 'auto',
+		display: collapsed.value ? 'none' : 'block',
 	}
 })
 </script>
@@ -22,7 +22,6 @@ const layoutLogoStyle = computed(() => {
 			cursor-pointer
 			whitespace-nowrap
 			transition-delay-100
-			overflow-hidden
 			dark:text-white
 			text-black
 			:style="layoutLogoStyle"
@@ -34,7 +33,6 @@ const layoutLogoStyle = computed(() => {
 
 <style scoped lang="scss">
 .layout-logo {
-	@apply: flex-center h-56px;
-	// box-shadow: 0 2px 3px rgba(0, 0, 0, 0.24);
+	@apply: flex-center h-56px mr-36px;
 }
 </style>

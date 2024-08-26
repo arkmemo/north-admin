@@ -1,5 +1,5 @@
 import { useGlobalSettingStore } from '~/stores'
-import { useTheme } from './useTheme'
+import { useTheme } from '~/hooks'
 
 const { isDark } = useTheme()
 export const useToggleTheme = () => {
@@ -12,6 +12,7 @@ export const useToggleTheme = () => {
 
 		if (!isAppearanceTransition) {
 			isDark.value = !isDark.value
+			store.state.isDark = isDark.value
 			return
 		}
 

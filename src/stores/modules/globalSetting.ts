@@ -21,7 +21,7 @@ export const useGlobalSettingStore = defineStore(
 			layoutMode: 'vertical', // horizontal | vertical
 
 			// 侧边栏颜色
-			sideBarColor: '#9980FA',
+			sideBarColor: '#1C1E23',
 
 			// 是否显示右侧菜单
 			rightSideBar: false,
@@ -47,6 +47,9 @@ export const useGlobalSettingStore = defineStore(
 			(val: string) => {
 				console.log('sideBarColor', val)
 				document.documentElement.style.setProperty(ScssVariableEnum.BG_COLOR, val)
+			},
+			{
+				immediate: true,
 			},
 		)
 

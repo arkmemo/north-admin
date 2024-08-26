@@ -1,9 +1,16 @@
 <script setup lang="tsx">
-import type { RouteRecordRaw } from 'vue-router'
+import type { RouteMeta, RouteRecordRaw } from 'vue-router'
 
 defineOptions({
 	name: 'LayoutMenu',
 })
+
+
+
+
+type MenuList = Omit<RouteRecordRaw, "meta"> & {
+	meta: RouteMeta
+}  
 
 defineProps<{ menuList: RouteRecordRaw[] }>()
 
