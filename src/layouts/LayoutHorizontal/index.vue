@@ -60,7 +60,7 @@ const globalSettingStore = useGlobalSettingStore()
 
 :deep(.el-menu--horizontal) {
 	height: 100%;
-
+	//
 	.el-menu-item,
 	.el-sub-menu {
 		margin: 0 4px;
@@ -102,7 +102,7 @@ const globalSettingStore = useGlobalSettingStore()
 html.dark {
 	.el-menu--horizontal {
 		height: 100%;
-
+		//
 		.el-menu-item,
 		.el-sub-menu {
 			margin: 0 4px;
