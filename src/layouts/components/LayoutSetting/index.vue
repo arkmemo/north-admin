@@ -15,7 +15,7 @@ const layoutMode = computed(() => globalSettingStore.isVertical())
 			py-10px
 			transition-all
 			rounded-10px
-			hover:bg="#42408b"
+			hover:bg="#2E3033"
 			@click="globalSettingStore.state.openSettingPanel = true"
 		>
 			<Icon icon="fluent:launcher-settings-24-filled" text-18px />

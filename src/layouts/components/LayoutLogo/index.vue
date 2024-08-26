@@ -13,7 +13,7 @@ const layoutLogoStyle = computed(() => {
 </script>
 
 <template>
-	<div class="layout-logo">
+	<div class="layout-logo" :class="[globalSettingStore.isVertical() ? '' : 'mr-36px']">
 		<img src="../../../assets/logo/logo.jpg" :width="38" alt="LOGO" rounded="1/8" cursor-pointer />
 		<h1
 			font="bold"
@@ -33,6 +33,6 @@ const layoutLogoStyle = computed(() => {
 
 <style scoped lang="scss">
 .layout-logo {
-	@apply: flex-center h-56px mr-36px;
+	@apply: flex-center h-56px;
 }
 </style>

@@ -12,7 +12,7 @@ const handleChangeMenu = () => {
 
 <template>
 	<el-header class="layout-header">
-		<div @click="handleChangeMenu">
+		<div @click="handleChangeMenu" cursor-pointer>
 			<Icon icon="ep:expand" text-22px v-if="collapsed" />
 			<Icon icon="ep:fold" text-22px v-else />
 		</div>
