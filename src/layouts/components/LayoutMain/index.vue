@@ -5,14 +5,12 @@ import Tabs from '../../tabs/index.vue'
 <template>
 	<Tabs></Tabs>
 	<el-main class="layout-container_sub-main">
-		<el-card>
-			<router-view v-slot="{ Component }">
-				<keep-alive>
-					<component :is="Component" v-if="$route.meta.isKeepAlive" :key="$route.name" />
-				</keep-alive>
-				<component :is="Component" v-if="!$route.meta.isKeepAlive" :key="$route.name" />
-			</router-view>
-		</el-card>
+		<router-view v-slot="{ Component }">
+			<keep-alive>
+				<component :is="Component" v-if="$route.meta.isKeepAlive" :key="$route.name" />
+			</keep-alive>
+			<component :is="Component" v-if="!$route.meta.isKeepAlive" :key="$route.name" />
+		</router-view>
 	</el-main>
 </template>
 
