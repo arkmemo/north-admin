@@ -9,7 +9,7 @@ export const useGlobalSettingStore = defineStore(
 	() => {
 		const state = reactive({
 			// 打开设置面板
-			openSettingPanel: true,
+			openSettingPanel: false,
 
 			// 菜单栏宽度
 			sideBarWidth: 220,
