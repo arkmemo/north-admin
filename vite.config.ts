@@ -39,7 +39,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
 		css: {
 			preprocessorOptions: {
 				scss: {
-					additionalData: `@import "~/styles/variable.scss";`,
+					additionalData: `@use "~/styles/variable.scss";`
 				},
 			},
 		},

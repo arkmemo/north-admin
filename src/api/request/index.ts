@@ -9,8 +9,8 @@ import {
 
 const createHttpClient = () => {
 	const httpClient = new HttpClient({
-		baseURL: 'http://123.60.72.205:7777/North/api',
-		timeout: 10000,
+		baseURL: 'http://114.132.169.133:8081/api/v1/admin/',
+		timeout: 10000
 	})
 
 	// 注册中间件

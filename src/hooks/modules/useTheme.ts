@@ -10,7 +10,6 @@ export const useTheme = () => {
 	})
 
 	// 监听系统主题切换
-
 	const getTheme = () => {
 		// 如果有缓存，则为缓存内容
 		const systemTheme =

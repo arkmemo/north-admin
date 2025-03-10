@@ -84,6 +84,14 @@
     "$globalSettingId": true,
     "stores": true,
     "useGlobalSettingStore": true,
-    "useTabsStore": true
+    "useTabsStore": true,
+    "DirectiveBinding": true,
+    "MaybeRef": true,
+    "MaybeRefOrGetter": true,
+    "onWatcherCleanup": true,
+    "useId": true,
+    "useModel": true,
+    "useTemplateRef": true,
+    "useUserStore": true
   }
 }

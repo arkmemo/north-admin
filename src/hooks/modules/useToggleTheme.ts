@@ -3,6 +3,7 @@ import { useTheme } from '~/hooks'
 
 const { isDark } = useTheme()
 export const useToggleTheme = () => {
+	
 	const toggleTheme = (event: MouseEvent) => {
 		const store = useGlobalSettingStore()
 
