@@ -26,10 +26,12 @@ export const routesToMenu = (routes: RouteRecordRaw[]) => {
 				menus.push(route.children[0])
 			} else if (route.children && route.children.length > 1) {
 				const children = route.children!
-				children && children.sort((a, b) => (a.meta!.orderNo as number) - (b.meta!.orderNo as number))
+				const sortedChildren = children.toSorted(
+					(a, b) => (a.meta!.orderNo as number) - (b.meta!.orderNo as number),
+				)
 				menus.push({
 					...route,
-					children,
+					...sortedChildren,
 				})
 			}
 		})

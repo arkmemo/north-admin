@@ -1,5 +1,4 @@
-import { fetchAuthLogin,fetchAuthLogout, fetchUserInfo } from "~/api/modules"
-
+import { fetchAuthLogin, fetchAuthLogout, fetchUserInfo } from '~/api/modules'
 
 export const useUserStore = defineStore(
 	'useUserStore',
@@ -12,21 +11,23 @@ export const useUserStore = defineStore(
 		//登录
 		const login = (user: IAuthLogin) => {
 			return new Promise((resolve, reject) => {
-				fetchAuthLogin(user).then(async ({ data })=>{
-					token.value = data
-					getUserInfo()
-					//登录成功
-					resolve(true)
-				}).catch((err)=>{
-					//登录失败
-					reject(err)
-				})
+				fetchAuthLogin(user)
+					.then(async ({ data }) => {
+						token.value = data
+						getUserInfo()
+						//登录成功
+						resolve(true)
+					})
+					.catch((err) => {
+						//登录失败
+						reject(err)
+					})
 			})
 		}
-		
+
 		//登出
 		const logout = () => {
-			fetchAuthLogout().then(()=>{
+			fetchAuthLogout().then(() => {
 				token.value = undefined
 				userInfo.value = undefined
 			})
@@ -34,7 +35,7 @@ export const useUserStore = defineStore(
 
 		//获取用户信息
 		const getUserInfo = () => {
-			fetchUserInfo().then((res)=>{
+			fetchUserInfo().then((res) => {
 				userInfo.value = res.data
 			})
 		}
@@ -42,13 +43,12 @@ export const useUserStore = defineStore(
 			userInfo,
 			token,
 			login,
-			logout
+			logout,
 		}
 	},
 	{
 		persist: {
 			storage: localStorage,
-			paths: ['token'],
 		},
 	},
 )

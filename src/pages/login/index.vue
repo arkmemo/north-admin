@@ -62,7 +62,8 @@
     </div>
 </template>
 <script setup lang="ts">
-import LayoutTheme from '../../layouts/components/LayoutTheme/index.vue'
+import LayoutTheme from '~/layouts/components/LayoutTheme/index.vue'
+
 const eyeType = ref('password')
 
 const formData = ref<IAuthLogin>({
@@ -76,13 +77,15 @@ const passwordInput = ref()
 const isUsername = ref(false)
 const isPassword = ref(false)
 const autoLogin = ref(false)
+const router = useRouter()
 
 const toggleLoginType = () => {
     formData.value.type = formData.value.type === 'password' ? 'code' : 'password'
 }
 const { login } = useUserStore()
-const Submit = () => {
-	login(formData.value)
+const Submit = async () => {
+	await login(formData.value)
+	router.push('/home')
 }
 </script>
 
