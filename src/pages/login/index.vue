@@ -87,10 +87,6 @@ const Submit = () => {
 </script>
 
 <style scoped lang="scss">
-:deep(.el-popover){
-    border-radius: 16px !important;
-    background-color:#ffffff00 !important;
-}
 .active{
     color: #fff !important;
     border-color: #5B5D6EFF !important;
@@ -257,45 +253,6 @@ const Submit = () => {
     background-size: 100%;
     background-color: #000;
     position: relative;
-    .flow-bottom{
-        position: absolute;
-        width:1280px;
-        bottom: 25px;
-        left: 0;
-        z-index: 0;
-    }
-    .flow-top-left{
-        position: absolute;
-        width:469px;
-        top: 68px;
-        left: 0;
-        z-index: 0;
-    }
-    .flow-top-right{
-        position: absolute;
-        width:469px;
-        top: 107px;
-        right: 0;
-        z-index: 0;
-    }
-    .gold{
-        position: absolute;
-        width: 72px;
-        left: 200px;
-        top: 240px;
-    }
-    .silver{
-        position: absolute;
-        width: 64px;
-        top: 230px;
-        right: 180px;
-    }
-    .usdx{
-        position: absolute;
-        width: 56px;
-        top: 435px;
-        right: 225px;
-    }
 }
 .Login {
     position: absolute;
