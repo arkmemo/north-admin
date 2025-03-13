@@ -15,22 +15,23 @@
 	border: none !important;
 	background-color: transparent !important;
 
-	.el-menu-item, .el-sub-menu{
+	.el-menu-item,
+	.el-sub-menu {
 		user-select: none;
 		border: none !important;
 		border-radius: 6px;
 	}
 
-	.el-menu-item, .el-sub-menu, .el-sub-menu__title {
+	.el-menu-item,
+	.el-sub-menu,
+	.el-sub-menu__title {
 		color: #a9a9a9;
 	}
 }
 
-
 .el-menu--horizontal {
 	--el-menu-text-color: #a9a9a9;
 }
-
 
 .el-menu--popup-container {
 	border-radius: 10px;
@@ -38,13 +39,12 @@
 	.el-menu--popup {
 		padding: 10px;
 		border-radius: 10px;
-		
-		li[role="menuitem"] {
-			margin: 4px 0!important;
+
+		li[role='menuitem'] {
+			margin: 4px 0 !important;
 		}
 	}
 }
-
 
 html:not(.dark) {
 	.el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
@@ -60,5 +60,28 @@ html:not(.dark) {
 		color: #fff;
 		background-color: var(--north-bg-color) !important;
 	}
+}
 
+.el-dialog {
+	border-radius: 8px !important;
+	padding: 0 !important;
+	&__header {
+		padding: 16px 24px;
+		font-size: 16px;
+		font-weight: 500;
+		color: #303544;
+		border-bottom: 1px solid #e0e0e0;
+		margin-right: 0;
+	}
+	&__body {
+		padding: 30px 20px 20px 20px;
+	}
+	&__footer {
+		display: flex;
+		justify-content: end;
+		align-items: center;
+		border-top: 1px solid #e0e0e0;
+		padding: 16px;
+		margin-top: 24px;
+	}
 }
