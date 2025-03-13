@@ -92,6 +92,7 @@
     "useId": true,
     "useModel": true,
     "useTemplateRef": true,
-    "useUserStore": true
+    "useUserStore": true,
+    "ElMessageBox": true
   }
 }

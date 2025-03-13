@@ -7,8 +7,8 @@ export const MenuRoutes: RouteRecordRaw[] = [
 		redirect: '/menu/menu1',
 		component: Layout,
 		meta: {
-			title: '菜单',
-			icon: 'fluent:list-bar-20-filled',
+			title: '系统配置',
+			icon: 'hugeicons:system-update-02',
 			isHide: false,
 			orderNo: 3,
 			isKeepAlive: false,
@@ -18,8 +18,8 @@ export const MenuRoutes: RouteRecordRaw[] = [
 				path: '/menu/menu1',
 				name: 'Menu1',
 				meta: {
-					title: '菜单1',
-					icon: 'fluent:list-bar-20-filled',
+					title: '菜单管理',
+					icon: 'material-symbols:list-alt-add-outline',
 					isHide: false,
 					orderNo: 2,
 					isKeepAlive: false,

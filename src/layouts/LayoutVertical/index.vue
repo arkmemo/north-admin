@@ -6,7 +6,7 @@ import LayoutMain from '../components/LayoutMain/index.vue'
 import LayoutSetting from '../components/LayoutSetting/index.vue'
 import { getDynamicRouter } from '~/router/routes/dynamicRouter.ts'
 import { routesToMenu } from '~/router/helper/transformHelp'
-
+import { fetchGetMenuTree } from '~/api/modules'
 const menu = routesToMenu(getDynamicRouter)
 const route = useRoute()
 const activeRoute = ref(route.path)
@@ -18,6 +18,9 @@ const layoutAsideBarStyle = computed(() => {
 	return {
 		width: collapsed.value ? '64px' : '220px',
 	}
+})
+fetchGetMenuTree().then((res) => {
+	console.log(res)
 })
 </script>
 
