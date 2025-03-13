@@ -70,7 +70,7 @@
 					<el-form-item label="父级菜单" prop="parentId">
 						<el-tree-select
 							v-model="formData.parentId"
-							:data="tableData"
+							:data="menuTreeData"
 							check-strictly
 							:render-after-expand="false"
 							placeholder="请选择路由路径"
@@ -160,7 +160,7 @@ const initFormData = () => {
 		icon: '',
 		sort: 0,
 		status: 1,
-		parentId: '',
+		parentId: 0,
 	}
 }
 const formData = ref(initFormData())
@@ -219,6 +219,9 @@ const handleEditMenu = (row: EntityMenuEntity) => {
 	formData.value.id = row.id
 	dialog.value.visible = true
 }
+const menuTreeData = computed(() => {
+	return [{ id: 0, title: '根目录', children: [] }, ...tableData.value]
+})
 onMounted(() => {
 	getMenuData()
 })
