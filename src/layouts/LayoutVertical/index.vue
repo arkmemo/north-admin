@@ -41,15 +41,15 @@ fetchGetMenuTree().then((res) => {
 				</el-menu>
 			</el-scrollbar>
 
-			<div px-10px>
+			<!-- <div px-10px>
 				<div py-6px b-t="2px solid #ccc">
 					<LayoutSetting></LayoutSetting>
 				</div>
-			</div>
+			</div> -->
 		</el-aside>
-		<div class="py-6px pr-8px w-full">
+		<div class="py-4px pr-8px flex-1">
 			<el-container class="layout-container_sub">
-				<layout-header></layout-header>
+				<layout-header w-full></layout-header>
 				<LayoutMain></LayoutMain>
 				<el-footer>Footer</el-footer>
 			</el-container>
@@ -67,11 +67,12 @@ fetchGetMenuTree().then((res) => {
 }
 
 .layout-container_sub {
-	@apply: w-full rounded-10px;
+	@apply: rounded-10px;
 	--at-apply: bg-#f9f8fd dark-bg-#141414;
+	flex-direction: column;
 
 	&-main {
-		height: calc(100vh - 158px);
+		height: calc(100vh - 153px);
 	}
 }
 

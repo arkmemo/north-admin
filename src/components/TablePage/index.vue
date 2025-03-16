@@ -16,7 +16,7 @@ const attrs = useAttrs()
 const emits = defineEmits<{
 	change: [number, number]
 }>()
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
 	data: () => [],
 	total: 0,
 })

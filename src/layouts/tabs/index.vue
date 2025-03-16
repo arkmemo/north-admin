@@ -28,7 +28,7 @@ const handleTabRemove = (path: TabPaneName) => {
 </script>
 
 <template>
-	<el-tabs v-model="currentTab" :closable="tabsList.length > 1" px-20px @tab-remove="handleTabRemove">
+	<el-tabs v-model="currentTab" px-20px :closable="tabsList.length > 1" @tab-remove="handleTabRemove">
 		<el-tab-pane v-for="tab in tabsList" :key="tab.path" :label="tab.title" :name="tab.path">
 			<template #label>
 				<span flex-center>

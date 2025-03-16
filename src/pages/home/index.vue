@@ -54,7 +54,7 @@ const handleClick = (row: any) => {
 </script>
 
 <template>
-	<div>
+	<el-card>
 		<h1>Home</h1>
 		<p>Home page content</p>
 		<table-page
@@ -75,7 +75,7 @@ const handleClick = (row: any) => {
 				</template>
 			</el-table-column>
 		</table-page>
-	</div>
+	</el-card>
 </template>
 
 <style scoped lang="scss"></style>
