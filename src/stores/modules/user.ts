@@ -1,10 +1,11 @@
-import { fetchAuthLogin, fetchAuthLogout, fetchUserInfo } from '~/api/modules'
+import { fetchAuthLogin, fetchAuthLogout, fetchEmployeeInfo } from '~/api/modules'
+import { router } from '~/router'
 
 export const useUserStore = defineStore(
 	'useUserStore',
 	() => {
 		//用户信息
-		const userInfo = ref<IUserInfo>()
+		const userInfo = ref<IEmployeeEntity>()
 
 		const token = ref<string>()
 
@@ -27,15 +28,19 @@ export const useUserStore = defineStore(
 
 		//登出
 		const logout = () => {
-			fetchAuthLogout().then(() => {
-				token.value = undefined
-				userInfo.value = undefined
-			})
+			fetchAuthLogout()
+				.then(() => {
+					token.value = undefined
+					userInfo.value = undefined
+				})
+				.finally(() => {
+					router.replace('/login')
+				})
 		}
 
 		//获取用户信息
 		const getUserInfo = () => {
-			fetchUserInfo().then((res) => {
+			fetchEmployeeInfo().then((res) => {
 				userInfo.value = res.data
 			})
 		}
