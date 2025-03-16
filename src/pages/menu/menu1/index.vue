@@ -124,6 +124,16 @@ const columns = [
 		minWidth: 150,
 	},
 	{
+		prop: 'path',
+		label: '路由路径',
+		minWidth: 150,
+	},
+	{
+		prop: 'redirect',
+		label: '重定向',
+		minWidth: 150,
+	},
+	{
 		prop: 'icon',
 		label: '图标',
 		minWidth: 150,
