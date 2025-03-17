@@ -80,6 +80,7 @@
 									prefix-icon="Lock"
 									show-password
 									class="h-11 rounded-lg"
+									@keydown.enter="handleSubmit"
 								/>
 							</el-form-item>
 
@@ -91,6 +92,7 @@
 										placeholder="请输入验证码"
 										prefix-icon="Key"
 										class="h-11 rounded-lg flex-1"
+										@keydown.enter="handleSubmit"
 									/>
 									<el-button
 										type="primary"
@@ -138,6 +140,7 @@
 
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
+import { fetchSmsCode } from '~/api/modules'
 const formData = ref<IAuthLogin>({
 	phone: '13800013800',
 	password: '123456Aa',
@@ -185,7 +188,7 @@ const sendCaptcha = async () => {
 
 	try {
 		// 模拟API请求
-		await new Promise((resolve) => setTimeout(resolve, 1000))
+		await fetchSmsCode(formData.value.phone)
 
 		// 开始倒计时
 		countdown.value = 60
