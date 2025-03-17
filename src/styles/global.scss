@@ -9,6 +9,16 @@ body,
 	height: 4px !important;
 }
 
+/* Hide scrollbars */
+::-webkit-scrollbar {
+	display: none;
+}
+
+body {
+	-ms-overflow-style: none; /* Internet Explorer 10+ */
+	scrollbar-width: none; /* Firefox */
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
 	animation: none;

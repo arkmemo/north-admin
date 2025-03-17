@@ -7,7 +7,7 @@ const globalSettingStore = useGlobalSettingStore()
 </script>
 
 <template>
-	<div>
+	<div class="w-full h-full">
 		<component :is="globalSettingStore.isVertical() ? LayoutVertical : LayoutHorizontal" />
 		<setting-drawer></setting-drawer>
 	</div>

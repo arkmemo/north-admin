@@ -29,7 +29,7 @@ fetchGetMenuTree().then((res) => {
 		<el-aside class="layout-aside" :style="layoutAsideBarStyle">
 			<LayoutLogo></LayoutLogo>
 
-			<el-scrollbar height="calc(100vh - 120px)" :class="[!collapsed ? 'pr-6px' : '']">
+			<el-scrollbar style="height: calc(100vh - 72px)" :class="[!collapsed ? 'pr-6px' : '']">
 				<el-menu
 					:router="false"
 					:default-active="activeRoute"
@@ -47,10 +47,12 @@ fetchGetMenuTree().then((res) => {
 				</div>
 			</div> -->
 		</el-aside>
-		<div class="py-4px pr-8px flex-1">
+		<div class="py-4px pr-8px flex-1 w-full min-w-[calc(100%-220px)]">
 			<el-container class="layout-container_sub">
 				<layout-header w-full></layout-header>
-				<LayoutMain></LayoutMain>
+				<el-main>
+					<LayoutMain></LayoutMain>
+				</el-main>
 				<el-footer>Footer</el-footer>
 			</el-container>
 		</div>
@@ -60,6 +62,7 @@ fetchGetMenuTree().then((res) => {
 <style lang="scss" scoped>
 .layout-container {
 	@apply: bg-[--north-bg-color];
+	height: 100%;
 }
 
 .layout-aside {
@@ -79,9 +82,6 @@ fetchGetMenuTree().then((res) => {
 :deep(.el-menu) {
 	.el-menu-item,
 	.el-sub-menu__title {
-		//color: #a9a9a9;
-		//border-radius: 6px;
-		//user-select: none;
 		position: relative;
 
 		&.is-active {

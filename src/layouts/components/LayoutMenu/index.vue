@@ -5,12 +5,9 @@ defineOptions({
 	name: 'LayoutMenu',
 })
 
-
-
-
-type MenuList = Omit<RouteRecordRaw, "meta"> & {
+type MenuList = Omit<RouteRecordRaw, 'meta'> & {
 	meta: RouteMeta
-}  
+}
 
 defineProps<{ menuList: RouteRecordRaw[] }>()
 
