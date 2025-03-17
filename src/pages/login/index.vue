@@ -1,466 +1,335 @@
 <template>
-	<div class="Body">
-		<div class="Login">
-			<div flex-between items-center>
-				<div class="Heard">Hi~欢迎使用</div>
-				<div class="Button" flex items-center @click="toggleLoginType">
-					<ZIcon
-						width="14px"
-						height="14px"
-						v-show="formData.type === 'code'"
-						icon="../images/login/sms.svg"
-						mr2px
-					/>
-					<ZIcon
-						width="14px"
-						height="14px"
-						v-show="formData.type === 'password'"
-						icon="../images/login/password.svg"
-						mr2px
-					/>
-					<span v-show="formData.type === 'code'">短信登录</span>
-					<span v-show="formData.type === 'password'">密码登录</span>
-				</div>
+	<div class="h-full relative overflow-hidden bg-gray-50 dark:bg-dark-800">
+		<RippleBackground />
+		<WaveBackground />
+
+		<div class="h-full flex items-center justify-center px-4 md:px-0">
+			<!-- 左侧图片部分 -->
+			<div class="hidden md:flex md:flex-1 justify-center items-center">
+				<img
+					class="max-w-md w-full transform hover:scale-105 transition-transform duration-500"
+					src="../../assets/images/auth/login-background.svg"
+					alt="login background"
+				/>
 			</div>
-			<div mt8px flex items-center class="openAccount">
-				没有账户？
-				<div>注册账户</div>
-			</div>
-			<div class="Form" mt28px>
+
+			<!-- 右侧登录卡片 -->
+			<div class="w-full md:w-1/2 flex justify-center">
 				<div
-					class="Input"
-					@click="userInput.focus()"
-					:class="{ Action: isUsername || formData.phone, ActionBorder: isUsername }"
+					class="w-full max-w-md bg-white dark:bg-dark-700 rounded-xl shadow-lg overflow-hidden transform transition-all hover:shadow-xl"
 				>
-					<div flex flex-column style="width: 100%">
-						<div class="label">手机号</div>
-						<input
-							autocomplete="on"
-							ref="userInput"
-							@focus="isUsername = true"
-							@blur="isUsername = false"
-							type="text"
-							v-model="formData.phone"
-							name="username"
-						/>
+					<!-- 卡片头部 -->
+					<div class="text-center py-6 px-4 bg-gradient-to-r from-blue-500 to-indigo-600">
+						<h1 class="text-2xl font-bold text-white mb-1">登录系统</h1>
+						<p class="text-sm text-white opacity-80">欢迎回来，请登录您的账户</p>
 					</div>
-					<div flex items-center>
+
+					<!-- 登录选项卡 -->
+					<div class="flex border-b border-gray-200 dark:border-dark-500">
 						<div
-							class="Input-Button"
-							v-show="formData.phone && isUsername"
-							@click.stop="formData.phone = ''"
+							class="flex-1 text-center py-3 cursor-pointer transition-colors relative"
+							:class="
+								formData.type === 'password'
+									? 'text-blue-500 font-medium'
+									: 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white'
+							"
+							@click="formData.type = 'password'"
 						>
-							<ZIcon width="16px" height="16px" icon="../images/login/cancel.svg" />
+							密码登录
+							<div
+								v-if="formData.type === 'password'"
+								class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500"
+							></div>
 						</div>
-						<img src="../../assets/images/login/account.svg" />
-					</div>
-				</div>
-				<div
-					mt20px
-					class="Input"
-					@click="passwordInput.focus()"
-					:class="{ Action: isPassword || formData.password, ActionBorder: isPassword }"
-				>
-					<div flex flex-column style="width: 100%">
-						<div class="label">密码</div>
-						<input
-							autocomplete="on"
-							:type="eyeType"
-							ref="passwordInput"
-							@focus="isPassword = true"
-							@blur="isPassword = false"
-							v-model="formData.password"
-							name="password"
-						/>
-					</div>
-					<div flex items-center>
 						<div
-							class="Input-Button"
-							v-show="formData.password && isPassword"
-							@click="formData.password = ''"
+							class="flex-1 text-center py-3 cursor-pointer transition-colors relative"
+							:class="
+								formData.type === 'code'
+									? 'text-blue-500 font-medium'
+									: 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white'
+							"
+							@click="formData.type = 'code'"
 						>
-							<ZIcon width="16px" height="16px" icon="../images/login/cancel.svg" />
+							验证码登录
+							<div
+								v-if="formData.type === 'code'"
+								class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500"
+							></div>
 						</div>
-						<img
-							v-show="eyeType == 'password'"
-							@click.stop="eyeType = 'text'"
-							class="eye"
-							src="../../assets/images/login/eyeClose.svg"
-						/>
-						<img
-							v-show="eyeType == 'text'"
-							@click.stop="eyeType = 'password'"
-							class="eye"
-							src="../../assets/images/login/eye.svg"
-						/>
+					</div>
+
+					<!-- 表单 -->
+					<div class="px-6 py-6">
+						<el-form :model="formData" :rules="rules" ref="loginForm" class="space-y-5">
+							<!-- 手机号输入 -->
+							<el-form-item prop="phone">
+								<el-input
+									v-model="formData.phone"
+									placeholder="请输入手机号"
+									prefix-icon="User"
+									class="h-11 rounded-lg"
+								/>
+							</el-form-item>
+
+							<!-- 密码输入 -->
+							<el-form-item v-if="formData.type === 'password'" prop="password">
+								<el-input
+									v-model="formData.password"
+									placeholder="请输入密码"
+									type="password"
+									prefix-icon="Lock"
+									show-password
+									class="h-11 rounded-lg"
+								/>
+							</el-form-item>
+
+							<!-- 验证码输入 -->
+							<el-form-item v-else prop="captcha" class="mb-0">
+								<div class="flex space-x-2 w-full">
+									<el-input
+										v-model="formData.captcha"
+										placeholder="请输入验证码"
+										prefix-icon="Key"
+										class="h-11 rounded-lg flex-1"
+									/>
+									<el-button
+										type="primary"
+										class="w-32 !h-11 text-sm font-medium"
+										:disabled="countdown > 0 || !isPhoneValid"
+										@click="sendCaptcha"
+									>
+										{{ countdown > 0 ? `${countdown}秒后重试` : '获取验证码' }}
+									</el-button>
+								</div>
+							</el-form-item>
+
+							<!-- 额外选项 -->
+							<div class="flex justify-between items-center text-sm">
+								<el-checkbox v-model="rememberMe" class="text-gray-600 dark:text-gray-300"
+									>记住我</el-checkbox
+								>
+								<a href="#" class="text-blue-500 hover:text-blue-600 hover:underline transition-colors"
+									>忘记密码?</a
+								>
+							</div>
+
+							<!-- 登录按钮 -->
+							<el-button
+								type="primary"
+								class="w-full !h-12 !text-base font-medium !rounded-full mt-6"
+								:loading="loading"
+								@click="handleSubmit"
+							>
+								登录
+							</el-button>
+
+							<!-- 底部链接 -->
+							<div class="flex justify-center space-x-6 text-sm text-gray-500 dark:text-gray-400 mt-6">
+								<a href="#" class="hover:text-blue-500 transition-colors">用户条款</a>
+								<a href="#" class="hover:text-blue-500 transition-colors">隐私协议</a>
+							</div>
+						</el-form>
 					</div>
 				</div>
-			</div>
-			<div flex-between items-center class="FunctionCss">
-				<div
-					v-show="formData.type == 'password'"
-					flex
-					items-center
-					class="Checkbox"
-					@click="autoLogin = !autoLogin"
-					:class="{ CheckboxAction: autoLogin }"
-				>
-					<div class="Checkbox-Button">
-						<div v-show="autoLogin">√</div>
-					</div>
-					<span>记住密码</span>
-				</div>
-				<div class="Hover" v-show="formData.type == 'password'">忘记密码</div>
-			</div>
-			<div class="Submit" @click="Submit">
-				<div class="content">立即登录</div>
-			</div>
-			<div class="Foot">
-				<span> 用户条款 </span>
-				<span> 隐私协议 </span>
 			</div>
 		</div>
-		<LayoutTheme />
 	</div>
 </template>
+
 <script setup lang="ts">
-import LayoutTheme from '~/layouts/components/LayoutTheme/index.vue'
-
-const eyeType = ref('password')
-
+import type { FormInstance } from 'element-plus'
 const formData = ref<IAuthLogin>({
-	phone: '138000138000',
+	phone: '13800013800',
 	password: '123456Aa',
 	captcha: '',
 	type: 'password',
 })
-const userInput = ref()
-const passwordInput = ref()
-const isUsername = ref(false)
-const isPassword = ref(false)
-const autoLogin = ref(false)
-const router = useRouter()
 
-const toggleLoginType = () => {
-	formData.value.type = formData.value.type === 'password' ? 'code' : 'password'
-}
+const router = useRouter()
 const { login } = useUserStore()
-const Submit = async () => {
-	await login(formData.value)
-	router.push('/home')
+// 表单校验规则
+const rules = {
+	phone: [
+		{ required: true, message: '请输入手机号', trigger: 'blur' },
+		{ pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' },
+	],
+	password: [
+		{ required: true, message: '请输入密码', trigger: 'blur' },
+		{ min: 6, message: '密码至少为6位', trigger: 'blur' },
+	],
+	captcha: [
+		{ required: true, message: '请输入验证码', trigger: 'blur' },
+		{ min: 4, max: 6, message: '验证码长度在4到6位之间', trigger: 'blur' },
+	],
 }
+
+const loginForm = ref<FormInstance>()
+const loading = ref(false)
+const rememberMe = ref(false)
+
+// 验证码倒计时
+const countdown = ref(0)
+let timer: ReturnType<typeof setInterval>
+
+// 检查手机号是否有效
+const isPhoneValid = computed(() => {
+	return /^1[3-9]\d{9}$/.test(formData.value.phone)
+})
+
+// 模拟发送验证码
+const sendCaptcha = async () => {
+	if (!isPhoneValid.value) {
+		ElMessage.error('请输入正确的手机号')
+		return
+	}
+
+	try {
+		// 模拟API请求
+		await new Promise((resolve) => setTimeout(resolve, 1000))
+
+		// 开始倒计时
+		countdown.value = 60
+		timer = setInterval(() => {
+			countdown.value--
+			if (countdown.value <= 0) {
+				clearInterval(timer)
+			}
+		}, 1000)
+
+		ElMessage.success('验证码已发送，请查收')
+	} catch (error) {
+		ElMessage.error('验证码发送失败，请稍后重试')
+	}
+}
+
+// 提交登录
+const handleSubmit = async () => {
+	if (!loginForm.value) return
+
+	await loginForm.value.validate(async (valid) => {
+		if (!valid) return
+
+		loading.value = true
+
+		try {
+			// 模拟API请求
+			await login(formData.value)
+			ElMessage.success('登录成功')
+			router.push('/home')
+		} catch (error) {
+			ElMessage.error('登录失败，请检查账号密码')
+		} finally {
+			loading.value = false
+		}
+	})
+}
+
+// 组件销毁前清除定时器
+onBeforeUnmount(() => {
+	if (timer) {
+		clearInterval(timer)
+	}
+})
 </script>
 
 <style scoped lang="scss">
-.active {
-	color: #fff !important;
-	border-color: #5b5d6eff !important;
-}
-.popoverContainer {
-	width: 96px;
-	border-radius: 16px;
-	border: 1px solid rgba(47, 49, 64, 0.4);
-	margin: auto;
+.login-card {
+	width: 400px;
+	border-radius: 12px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+	margin: 0 auto;
 	overflow: hidden;
-	.Item {
-		width: 90%;
-		height: 28px;
-		display: flex;
-		align-items: center;
-		justify-content: space-around;
-		font-size: 12px;
-		color: rgba(255, 255, 255, 0.5);
-		line-height: 16px;
-		padding: 4px 8px;
-		cursor: pointer;
-	}
-	.white {
-		color: white;
-	}
-	.Item:hover {
-		background: rgba(34, 36, 49, 0.5) !important;
-	}
+	padding: 0;
 }
-.multilingual {
-	width: 96px;
-	height: 32px;
-	border-radius: 16px;
-	border: 1px solid rgba(47, 49, 64, 0.4);
-	position: fixed;
-	bottom: 24px;
-	right: 24px;
-	display: flex;
-	align-items: center;
-	font-size: 12px;
-	color: #ffffff80;
-	line-height: 16px;
-	cursor: pointer;
-	z-index: 1;
-	.ICon {
-		width: 24px;
-		height: 24px;
-		background: #242839;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin: 4px;
-	}
-}
-.resend {
-	font-size: 12px;
-	color: rgba(255, 255, 255, 0.5);
-	line-height: 16px;
-	cursor: default;
-}
-.codeCss {
-	font-size: 12px;
-	color: #ffffff;
-	width: fit-content;
-	white-space: nowrap;
-	margin-left: 8px;
-	cursor: pointer;
-}
-.eye {
-	cursor: pointer;
-}
-.Foot {
-	width: calc(100% - 40px);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 11px;
-	color: rgba(255, 255, 255, 0.5);
-	line-height: 16px;
+
+.login-header {
 	text-align: center;
-	margin: auto;
-	margin-top: 24px;
-	white-space: pre-wrap;
-	span {
-		color: #ffffff;
-		cursor: pointer;
-	}
-	span:hover {
-		color: #d2a75b;
-	}
+	padding: 24px 0;
+	background: linear-gradient(135deg, #409eff, #5a75fa);
+	color: white;
+	margin-bottom: 20px;
 }
-.Submit {
+
+.login-header h1 {
+	font-size: 28px;
+	margin: 0;
+}
+
+.subtitle {
+	font-size: 14px;
+	margin-top: 8px;
+	opacity: 0.8;
+}
+
+.login-tabs {
+	display: flex;
+	border-bottom: 1px solid #e0e0e0;
+	margin-bottom: 20px;
+}
+
+.tab {
+	flex: 1;
+	text-align: center;
+	padding: 10px 0;
+	cursor: pointer;
+	transition: all 0.3s;
+	color: #606266;
+	position: relative;
+}
+
+.tab.active {
+	color: #409eff;
+	font-weight: 500;
+}
+
+.tab.active::after {
+	content: '';
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background-color: #409eff;
+}
+
+.login-form {
+	padding: 0 24px 24px;
+}
+
+.captcha-container {
+	display: flex;
+	gap: 10px;
+}
+
+.captcha-button {
+	flex-shrink: 0;
+	width: 120px;
+	white-space: nowrap;
+}
+
+.submit-button {
 	width: 100%;
 	height: 44px;
-	background: radial-gradient(461% 144% at 50% -25%, #535a6fff 0%, #292d3aff 100%);
-	border-radius: 8px;
-	margin-top: 32px;
+	border-radius: 22px;
+	margin-top: 10px;
 	font-size: 16px;
-	color: #ffffff;
-	line-height: 44px;
-	text-align: center;
-	cursor: pointer;
-	transition: all 0.2s ease;
-	position: relative;
-	overflow: hidden;
-	padding: 1px;
-	.content {
-		width: 100%;
-		height: 100%;
-		border-radius: 7px;
-		background: radial-gradient(80% 180% at 50% -50%, #2f354a 0%, #1a1d2d 100%);
-	}
+	font-weight: 500;
 }
-.Submit:hover {
-	background: radial-gradient(461% 144% at 50% -25%, #5d657bff 0%, #313544ff 100%);
-	.content {
-		background: radial-gradient(80% 180% at 50% -50%, #32384eff 0%, #1e2234ff 100%);
-	}
-}
-.FunctionCss {
-	height: 16px;
-	margin-top: 26px;
-	font-size: 12px;
-	color: rgba(255, 255, 255, 0.5);
-	line-height: 16px;
-	user-select: none;
-	div {
-		cursor: pointer;
-	}
-	.Hover:hover {
-		color: #fff;
-	}
-	.CheckboxAction {
-		color: #ffffff;
-		.Checkbox-Button {
-			background: #ffffff;
-			color: #000 !important;
-		}
-	}
-	.Checkbox {
-		&-Button {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 50%;
-			width: 10px;
-			height: 10px;
-			font-size: 12px;
-			border-radius: 2px;
-			border: 1px solid rgba(255, 255, 255, 0.5);
-			margin-right: 4px;
-		}
-	}
-}
-* {
-	// 过渡动画
-	transition: all 0.2s ease;
-	user-select: none;
-}
-.Body {
-	width: 100%;
-	height: 100vh;
-	background-size: 100%;
-	background-color: #000;
-	position: relative;
-}
-.Login {
-	position: absolute;
-	top: 42%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 
-	width: 386px;
-	// height: 424px;
-	// background: rgba(20, 24, 37, 0.8);
-	box-shadow: inset 0px 1px 40px 0px #1f2232;
-	border-radius: 30px;
-	border-image: radial-gradient(circle, rgba(131, 137, 167, 1), rgba(131, 137, 167, 0.08)) 1 1;
-	backdrop-filter: blur(2px);
-	margin: auto;
-	padding: 40px 28px;
-	border: 1px solid #282d3e;
-	.Form {
-		.Input {
-			height: 44px;
-			border-radius: 8px;
-			border: 1px solid #2f3140;
-			padding: 0px 12px;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			position: relative;
-			top: 8px;
-			cursor: text;
-			&-Button {
-				color: #ffffff80;
-				cursor: pointer;
-				display: flex;
-				align-items: center;
-				margin-right: 8px;
-			}
-			&-Button:hover {
-				color: #ffffff;
-			}
-			.label {
-				font-size: 12px;
-				color: rgba(255, 255, 255, 0.2);
-				line-height: 22px;
-				position: absolute;
-				top: 12px;
-			}
-			input {
-				padding-left: 0px;
-				width: 100%;
-				background-color: #ffffff00;
-				border: 0px;
-				outline: none;
-				font-size: 14px;
-				color: #ffffff;
-				position: relative;
-				z-index: 1;
-			}
-			input::-webkit-input-placeholder {
-				padding-left: 0px;
-
-				font-size: 12px;
-				color: rgba(255, 255, 255, 0.2);
-			}
-		}
-		.Action {
-			.label {
-				top: 2px;
-				font-size: 10px;
-				color: #ffffff80;
-			}
-			input {
-				padding-left: 0px;
-				top: 8px;
-			}
-		}
-		.ActionBorder {
-			border: 1px solid #5b5d6e;
-		}
-	}
-	.openAccount {
-		position: relative;
-		font-size: 12px;
-		color: rgba(255, 255, 255, 0.5);
-		line-height: 16px;
-		z-index: 1;
-		div {
-			font-size: 12px;
-			color: #ffffff;
-			line-height: 16px;
-			cursor: pointer;
-
-			font-size: 12px;
-			color: #ffffff;
-			line-height: 16px;
-		}
-		div:hover {
-			color: #d2a75b;
-		}
-	}
-	.Heard {
-		font-size: 24px;
-		color: #ffffff;
-		line-height: 28px;
-	}
-	.Button {
-		width: fit-content;
-		height: fit-content;
-		padding: 6px 8px;
-		border-radius: 14px;
-		border: 1px solid #2f3140;
-		font-size: 12px;
-		color: rgba(255, 255, 255, 0.5);
-		cursor: pointer;
-		user-select: none;
-	}
-	.Button:hover {
-		color: #fff;
-		border: 1px solid #5b5d6eff;
-		* {
-			color: #fff;
-		}
-	}
+.login-options {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 16px;
+	color: #606266;
 }
-.Loading {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: -1px !important;
-	left: -1px !important;
-	inset: 0;
-	opacity: 0.8;
-	border-radius: 31px;
-	padding: 1px;
-	background: conic-gradient(from var(--Loading-Deg), transparent 0, #8389a7 20%, transparent 25%);
-	-webkit-mask:
-		linear-gradient(#fff 0 0) content-box,
-		linear-gradient(#fff 0 0);
-	mask:
-		linear-gradient(#fff 0 0) content-box,
-		linear-gradient(#fff 0 0);
-	mask-composite: xor;
-	-webkit-mask-composite: xor;
-	mask-composite: exclude;
-	z-index: -1;
+
+.forgot-password {
+	color: #409eff;
+	text-decoration: none;
+}
+
+.forgot-password:hover {
+	text-decoration: underline;
 }
 </style>
