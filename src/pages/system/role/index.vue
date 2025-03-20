@@ -50,9 +50,9 @@
 					<el-form-item label="角色名称" prop="name">
 						<el-input v-model="formData.name"></el-input>
 					</el-form-item>
-					<el-form-item label="权限配置" prop="menus">
+					<el-form-item label="权限配置" prop="menuIds">
 						<el-tree-select
-							v-model="formData.menus"
+							v-model="formData.menuIds"
 							:data="menuTreeData"
 							multiple
 							:render-after-expand="false"
@@ -128,14 +128,14 @@ const initFormData = () => {
 	return {
 		name: '',
 		description: '',
-		menus: [],
+		menuIds: [],
 		code: '',
 	}
 }
 const formData = ref(initFormData())
 const rules = {
 	name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
-	menus: [{ required: true, message: '请设置角色权限', trigger: 'blur' }],
+	menuIds: [{ required: true, message: '请设置角色权限', trigger: 'blur' }],
 }
 const handleBeforeClose = () => {
 	formData.value = initFormData()
