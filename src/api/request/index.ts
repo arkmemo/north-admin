@@ -9,8 +9,8 @@ import {
 
 const createHttpClient = () => {
 	const httpClient = new HttpClient({
-		baseURL: 'http://114.132.169.133:8081/api/v1/admin/',
-		timeout: 10000
+		baseURL: 'https://api.northal.online/api/v1/admin/',
+		timeout: 10000,
 	})
 
 	// 注册中间件

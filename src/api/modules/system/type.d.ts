@@ -73,3 +73,15 @@ interface EntityPermissionEntity {
 	status: number
 	updatedAt?: string
 }
+/**
+ * entity.RoleEntity
+ */
+interface EntityRoleEntity {
+	code?: string
+	createdAt?: string
+	description?: string
+	id?: number
+	menus?: EntityMenuEntity[]
+	name?: string
+	updatedAt?: string
+}
