@@ -9,7 +9,8 @@ import {
 
 const createHttpClient = () => {
 	const httpClient = new HttpClient({
-		baseURL: 'https://api.northal.online/api/v1/admin/',
+		// baseURL: 'https://api.northal.online/api/v1/admin/',
+		baseURL: 'http://localhost:8080/api/v1/admin/',
 		timeout: 10000,
 	})
 
