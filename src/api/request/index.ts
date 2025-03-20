@@ -9,7 +9,9 @@ import {
 
 const createHttpClient = () => {
 	const httpClient = new HttpClient({
-		baseURL: 'https://api.northal.online/api/v1/admin/',
+		baseURL: import.meta.env.VITE_APP_BASE_API
+			? import.meta.env.VITE_APP_BASE_API
+			: 'https://api.northal.online/api/v1/admin/',
 		// baseURL: 'http://localhost:8080/api/v1/admin/',
 		timeout: 10000,
 	})
