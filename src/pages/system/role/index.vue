@@ -134,7 +134,7 @@ const initDialog = () => {
 const dialog = ref(initDialog())
 const initFormData = () => {
 	return {
-		id: '',
+		id: 0,
 		name: '',
 		description: '',
 		menuIds: [],
@@ -195,10 +195,13 @@ const handleDelete = (row: EntityMenuEntity) => {
 }
 const handleEdit = (row: EntityMenuEntity) => {
 	dialog.value.title = '编辑角色'
+	console.log(row, 'row', formData.value)
+
 	for (let key in formData.value) {
-		formData.value[key] = row[key]
+		formData.value[key] = row[key as keyof EntityMenuEntity]
 	}
-	formData.value.id = row.id
+
+	formData.value.id = row.id!
 	dialog.value.visible = true
 }
 const menuTreeData = ref<EntityMenuEntity[]>([])
