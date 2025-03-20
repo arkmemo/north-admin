@@ -3,14 +3,14 @@
 		<div class="page-wrapper_body">
 			<el-card shadow="never" :body-style="{ padding: '24px' }" mt-16px>
 				<template #header>
-					<el-button type="primary" @click="handleAddMenu">
+					<el-button type="primary" @click="handleCreate">
 						<template #icon>
 							<i class="material-symbols:add-2-rounded"></i>
 						</template>
-						新增菜单
+						新增角色
 					</el-button>
 				</template>
-				<el-table :data="tableData" border row-key="id" v-loading="tableLoading">
+				<el-table :data="table.data" border row-key="id" v-loading="table.loading">
 					<el-table-column
 						v-for="col in columns"
 						:show-overflow-tooltip="true"
@@ -31,9 +31,9 @@
 							{{ row[col.prop] }}
 						</template>
 					</el-table-column>
-					<el-table-column label="操作" width="150px" align="center">
+					<el-table-column label="操作" min-width="150px" align="center">
 						<template #default="{ row }">
-							<el-button type="primary" size="small" @click="handleEditMenu(row)">编辑</el-button>
+							<el-button type="primary" size="small" @click="handleEdit(row)">编辑</el-button>
 							<el-button type="danger" size="small" @click="handleDelete(row)">删除</el-button>
 						</template>
 					</el-table-column>
@@ -45,53 +45,23 @@
 				width="500px"
 				:close-on-click-modal="false"
 				:before-close="handleBeforeClose"
-				class="custom-dialog"
 			>
 				<el-form ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="left">
-					<el-form-item label="菜单标题" prop="title">
-						<el-input v-model="formData.title"></el-input>
-					</el-form-item>
-					<el-form-item label="菜单类型" prop="menuType">
-						<el-select v-model="formData.menuType">
-							<el-option
-								v-for="item in menuTypeOptions"
-								:key="item.value"
-								:label="item.label"
-								:value="item.value"
-							></el-option>
-						</el-select>
-					</el-form-item>
-					<el-form-item label="路由名称" prop="name">
+					<el-form-item label="角色名称" prop="name">
 						<el-input v-model="formData.name"></el-input>
 					</el-form-item>
-					<el-form-item label="路由路径" prop="path">
-						<el-input v-model="formData.path"></el-input>
-					</el-form-item>
-					<el-form-item label="父级菜单" prop="parentId">
+					<el-form-item label="权限配置" prop="menus">
 						<el-tree-select
-							v-model="formData.parentId"
+							v-model="formData.menus"
 							:data="menuTreeData"
-							check-strictly
+							multiple
 							:render-after-expand="false"
 							placeholder="请选择路由路径"
 							:props="{ label: 'title', children: 'children', value: 'id' }"
 						/>
 					</el-form-item>
-					<el-form-item label="图标" prop="icon">
-						<el-input v-model="formData.icon"></el-input>
-					</el-form-item>
-					<el-form-item label="排序" prop="sort">
-						<el-input-number v-model="formData.sort"></el-input-number>
-					</el-form-item>
-					<el-form-item label="菜单状态" prop="status">
-						<el-switch
-							v-model="formData.status"
-							size="large"
-							:active-value="1"
-							:inactive-value="0"
-							active-text="启用"
-							inactive-text="禁用"
-						/>
+					<el-form-item label="描述" prop="description">
+						<el-input v-model="formData.description"></el-input>
 					</el-form-item>
 				</el-form>
 				<template #footer>
@@ -104,48 +74,41 @@
 </template>
 
 <script lang="ts" setup>
-import { fetchPostCreateMenu, fetchGetMenuTree, fetchDeleteMenu, fetchUpdateMenu } from '~/api/modules'
+import {
+	fetchGetRuleData,
+	fetchPostCreateRule,
+	fetchDeleteRule,
+	fetchUpdateRule,
+	fetchGetMenuTree,
+} from '~/api/modules'
 import { RadioFilter } from '~/utils'
-const tableData = ref<EntityMenuEntity[]>([])
+
+const table = reactive<TableParams<EntityRoleEntity>>({
+	page: 1,
+	limit: 10,
+	total: 0,
+	loading: false,
+	data: [],
+})
 const columns = [
 	{
-		prop: 'title',
-		label: '菜单标题',
-		minWidth: 150,
-	},
-	{
-		prop: 'menuType',
-		label: '类型',
-		minWidth: 150,
-	},
-	{
 		prop: 'name',
-		label: '路由名称',
+		label: '角色名称',
 		minWidth: 150,
 	},
 	{
-		prop: 'path',
-		label: '路由路径',
+		prop: 'createdAt',
+		label: '创建人',
 		minWidth: 150,
 	},
 	{
-		prop: 'redirect',
-		label: '重定向',
+		prop: 'updatedAt',
+		label: '更新时间',
 		minWidth: 150,
 	},
 	{
-		prop: 'icon',
-		label: '图标',
-		minWidth: 150,
-	},
-	{
-		prop: 'sort',
-		label: '排序',
-		minWidth: 150,
-	},
-	{
-		prop: 'status',
-		label: '菜单状态',
+		prop: 'description',
+		label: '描述',
 		minWidth: 150,
 	},
 ]
@@ -157,83 +120,86 @@ const menuTypeOptions = [
 const initDialog = () => {
 	return {
 		visible: false,
-		title: '新增菜单',
+		title: '新增角色',
 	}
 }
 const dialog = ref(initDialog())
 const initFormData = () => {
 	return {
-		title: '',
-		menuType: 'M',
 		name: '',
-		path: 'root',
-		icon: '',
-		sort: 0,
-		status: 1,
-		parentId: 0,
+		description: '',
+		menus: [],
+		code: '',
 	}
 }
 const formData = ref(initFormData())
 const rules = {
-	title: [{ required: true, message: '请输入菜单标题', trigger: 'blur' }],
-	menuType: [{ required: true, message: '请选择菜单标题', trigger: 'blur' }],
+	name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
+	menus: [{ required: true, message: '请设置角色权限', trigger: 'blur' }],
 }
 const handleBeforeClose = () => {
 	formData.value = initFormData()
 	dialog.value = initDialog()
 }
-const handleAddMenu = () => {
+const handleCreate = () => {
 	dialog.value.visible = true
 }
-const tableLoading = ref(false)
-const getMenuData = () => {
-	tableLoading.value = true
-	fetchGetMenuTree()
+const getTableList = () => {
+	table.loading = true
+	const params = {
+		page: table.page,
+		limit: table.limit,
+	}
+	fetchGetRuleData(params)
 		.then((res) => {
-			tableData.value = res.data
+			table.data = res.data.list
 		})
 		.finally(() => {
-			tableLoading.value = false
+			table.loading = false
 		})
 }
 const formRef = ref()
 const handleSubmit = () => {
 	formRef.value.validate((valid: boolean) => {
 		if (valid) {
-			const api = formData.value.id ? fetchUpdateMenu(formData.value) : fetchPostCreateMenu(formData.value)
-			api.then(() => {
-				getMenuData()
-				ElMessage.success('新增成功')
+			const api = formData.value.id ? fetchUpdateRule(formData.value) : fetchPostCreateRule(formData.value)
+			api.then((res) => {
+				getTableList()
+				ElMessage.success(res.message)
 				handleBeforeClose()
 			}).catch(() => {})
 		}
 	})
 }
 const handleDelete = (row: EntityMenuEntity) => {
-	ElMessageBox.confirm('确认删除该菜单吗?', '提示', {
+	ElMessageBox.confirm('确认删除该角色吗?', '提示', {
 		confirmButtonText: '确定',
 		cancelButtonText: '取消',
 		type: 'warning',
 	}).then(() => {
-		fetchDeleteMenu(row.id).then(() => {
-			getMenuData()
+		fetchDeleteRule(row.id as number).then(() => {
+			getTableList()
 			ElMessage.success('删除成功')
 		})
 	})
 }
-const handleEditMenu = (row: EntityMenuEntity) => {
-	dialog.value.title = '编辑菜单'
-	for (let key in row) {
+const handleEdit = (row: EntityMenuEntity) => {
+	dialog.value.title = '编辑角色'
+	for (let key in formData.value) {
 		formData.value[key] = row[key]
 	}
 	formData.value.id = row.id
 	dialog.value.visible = true
 }
-const menuTreeData = computed(() => {
-	return [{ id: 0, title: '根目录', children: [] }, ...tableData.value]
-})
+const menuTreeData = ref<EntityMenuEntity[]>([])
+const getMenuTree = () => {
+	fetchGetMenuTree().then((res) => {
+		menuTreeData.value = res.data || []
+	})
+}
 onMounted(() => {
-	getMenuData()
+	getTableList()
+	getMenuTree()
 })
 </script>
 
