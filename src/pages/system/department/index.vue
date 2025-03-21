@@ -2,28 +2,36 @@
 import { fetchDepartmentTree, fetchEmployeeList } from '~/api/modules'
 import { useList } from '~/hooks'
 
+const defaultParams: { departmentId: number | undefined; username: string; phone: string } = {
+	departmentId: undefined,
+	username: '',
+	phone: '',
+}
+
+const fetchFlag = ref(false)
+const { params, loading, list, search, total } = useList<IEmployeeEntity, IEmployeeListRequest>({
+	api: fetchEmployeeList,
+	defaultParams,
+	flag: fetchFlag,
+})
+
 const treeData = ref<EntityDepartmentTree[]>([])
 const defaultExpandedKeys = ref<number[]>([])
+const currentNodeKey = ref<string | number>('')
 const getTreeData = async () => {
 	const { data } = await fetchDepartmentTree()
 	treeData.value = data
 	data.forEach((item) => {
 		if (item.children) {
 			defaultExpandedKeys.value.push(item.id)
+			currentNodeKey.value = item.id
 		}
 	})
+
+	if (data.length) {
+		params.departmentId = data[0].id
+	}
 }
-
-const initParams = () => ({
-	departmentId: 0,
-	username: '',
-	phone: '',
-})
-
-const { params, loading, list, search, total } = useList<IEmployeeEntity, IEmployeeListRequest>({
-	api: fetchEmployeeList,
-	defaultParams: initParams(),
-})
 
 const handleClickTreeNodeChangeEmployee = (data: EntityDepartmentTree) => {
 	params.departmentId = data.id
@@ -31,6 +39,8 @@ const handleClickTreeNodeChangeEmployee = (data: EntityDepartmentTree) => {
 }
 
 await getTreeData()
+fetchFlag.value = true
+search()
 </script>
 
 <template>
@@ -45,6 +55,7 @@ await getTreeData()
 					style="max-width: 300px"
 					:data="treeData"
 					:default-expanded-keys="defaultExpandedKeys"
+					:current-node-key="currentNodeKey"
 					:props="{
 						children: 'children',
 						label: 'name',
