@@ -15,3 +15,5 @@ export const fetchPostCreateRule = (params) => post('/role', params)
 export const fetchDeleteRule = (id: number) => _delete(`/role/${id}`)
 
 export const fetchUpdateRule = (params) => put(`/role`, params)
+
+export const fetchDepartmentTree = () => get<EntityDepartmentTree[]>('/department/tree')
