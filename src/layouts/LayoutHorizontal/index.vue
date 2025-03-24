@@ -66,73 +66,34 @@ const globalSettingStore = useGlobalSettingStore()
 		margin: 0 4px;
 	}
 
-	.el-menu-item {
-		&.is-active {
-			background-color: var(--north-bg-color) !important;
-			color: #fff !important;
-		}
+	// .el-menu-item {
+	// 	&.is-active {
+	// 		background-color: var(--north-bg-color) !important;
+	// 		color: #fff !important;
+	// 	}
 
-		&:hover {
-			color: #fff !important;
-			background-color: var(--north-bg-color) !important;
-		}
-	}
+	// 	&:hover {
+	// 		color: #fff !important;
+	// 		background-color: var(--north-bg-color) !important;
+	// 	}
+	// }
 
-	.el-sub-menu {
-		.el-sub-menu__title {
-			border-radius: 6px;
-			background: transparent;
-			transition:
-				background-color var(--el-transition-duration),
-				color 0.2s;
+	// .el-sub-menu {
+	// 	.el-sub-menu__title {
+	// 		border-radius: 6px;
+	// 		background: transparent;
+	// 		transition:
+	// 			background-color var(--el-transition-duration),
+	// 			color 0.2s;
 
-			&:hover {
-				color: #fff !important;
-			}
-		}
+	// 		&:hover {
+	// 			color: #fff !important;
+	// 		}
+	// 	}
 
-		&:hover {
-			background-color: var(--north-bg-color) !important;
-		}
-	}
-}
-</style>
-
-<style lang="scss">
-html.dark {
-	.el-menu--horizontal {
-		height: 100%;
-		//
-		.el-menu-item,
-		.el-sub-menu {
-			margin: 0 4px;
-		}
-
-		.el-menu-item {
-			&.is-active {
-				background-color: #2e3033 !important;
-				color: #fff !important;
-			}
-
-			&:hover {
-				color: #fff !important;
-				background-color: #2e3033 !important;
-			}
-		}
-
-		.el-sub-menu {
-			.el-sub-menu__title {
-				color: #a9a9a9;
-			}
-
-			&:hover {
-				background-color: #2e3033 !important;
-
-				.el-sub-menu__title {
-					color: #fff !important;
-				}
-			}
-		}
-	}
+	// 	&:hover {
+	// 		background-color: var(--north-bg-color) !important;
+	// 	}
+	// }
 }
 </style>

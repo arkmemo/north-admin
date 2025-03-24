@@ -1,1 +1,13 @@
-$north-bg-color: #9980fa;
+:root {
+	--primary-color: #409eff; /* 主色调 */
+	--background-color: #ffffff; /* 背景色 */
+	--sub-background-color: #f0f2f5; /* 次背景色 */
+	--text-color: #333333; /* 文本色 */
+}
+
+.dark {
+	--primary-color: #1e90ff; /* 主色调 */
+	--background-color: #121212; /* 背景色 */
+	--sub-background-color: #1e1e1e; /* 次背景色 */
+	--text-color: #e0e0e0; /* 文本色 */
+}

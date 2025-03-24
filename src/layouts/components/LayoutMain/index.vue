@@ -1,10 +1,7 @@
-<script setup lang="ts">
-import Tabs from '../../tabs/index.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
 	<div>
-		<Tabs></Tabs>
 		<el-scrollbar :height="'calc(100vh - 194px)'">
 			<router-view v-slot="{ Component }">
 				<keep-alive>

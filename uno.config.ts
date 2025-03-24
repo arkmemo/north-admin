@@ -4,7 +4,7 @@ import {
 	presetAttributify,
 	presetIcons,
 	presetTypography,
-	presetUno,
+	presetWind3,
 	transformerAttributifyJsx,
 	transformerCompileClass,
 	transformerDirectives,
@@ -20,11 +20,15 @@ export default defineConfig({
 	},
 	theme: {
 		colors: {
-			// ...
+			primary: 'var(--primary-color)',
+			backgroundColor: 'var(--background-color)',
+			subBackgroundColor: 'var(--sub-background-color)',
+			textColor: 'var(--text-color)',
 		},
 	},
+
 	presets: [
-		presetUno(), // 此预设尝试提供流行的实用程序优先框架的通用超集，包括 Tailwind CSS、Windi CSS、Bootstrap、Tachyons 等。
+		presetWind3(), // 此预设尝试提供流行的实用程序优先框架的通用超集，包括 Tailwind CSS、Windi CSS、Bootstrap、Tachyons 等。
 		presetAttributify(), // 这将为其他预设启用属性模式
 		presetTypography(),
 		presetIcons({

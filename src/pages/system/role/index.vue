@@ -1,7 +1,7 @@
 <template>
 	<div class="page-wrapper">
 		<div class="page-wrapper_body">
-			<el-card shadow="never" :body-style="{ padding: '24px' }" mt-16px>
+			<el-card shadow="never" :body-style="{ padding: '24px' }">
 				<template #header>
 					<el-button type="primary" @click="handleCreate">
 						<template #icon>
