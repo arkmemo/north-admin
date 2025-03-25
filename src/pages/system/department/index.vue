@@ -50,9 +50,9 @@ search()
 		</template>
 
 		<div class="flex">
-			<div class="w-200px mr-16px">
+			<div class="mr-16px w-14%">
 				<el-tree
-					style="max-width: 300px"
+					style="max-width: 100%"
 					:data="treeData"
 					:default-expanded-keys="defaultExpandedKeys"
 					:current-node-key="currentNodeKey"
@@ -68,7 +68,7 @@ search()
 			</div>
 
 			<table-page
-				class-name="flex-1"
+				class-name="w-90%"
 				:page="params.page"
 				:limit="params.limit"
 				@change="search"

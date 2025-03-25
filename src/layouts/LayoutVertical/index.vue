@@ -63,17 +63,12 @@ const layoutAsideBarStyle = computed(() => {
 	background-color: var(--background-color);
 }
 
-.layout-container_sub {
-	flex-direction: column;
-	flex: 1;
-	width: 100%;
-}
-
 .layout-footer {
 	--el-footer-height: 40px;
 	text-align: center;
 	line-height: var(--el-footer-height);
 	font-size: 12px;
 	background-color: var(--background-color);
+	color: var(--text-color);
 }
 </style>
