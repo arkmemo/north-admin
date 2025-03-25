@@ -66,7 +66,7 @@ const handleTabClick = (tab: TabsPaneContext) => {
 			font-size: 14px;
 			color: var(--el-text-color-secondary);
 			padding: 8px 16px;
-			border-radius: 4px;
+			// border-radius: 4px;
 			transition: all 0.3s;
 
 			&:hover {

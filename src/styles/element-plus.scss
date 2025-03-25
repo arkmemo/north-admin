@@ -15,6 +15,16 @@
 	}
 }
 
+.el-tabs--card > .el-tabs__header .el-tabs__nav {
+	border-radius: 0 !important;
+}
+
+.el-card {
+	--el-card-padding: 12px;
+	--el-card-bg-color: var(--background-color) !important;
+	--el-card-border-radius: 0px;
+}
+
 .el-dialog {
 	border-radius: 8px !important;
 	padding: 0 !important;

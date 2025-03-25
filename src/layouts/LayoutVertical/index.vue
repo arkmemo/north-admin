@@ -46,7 +46,7 @@ const layoutAsideBarStyle = computed(() => {
 			<el-main class="layout-container_sub-main">
 				<LayoutMain></LayoutMain>
 			</el-main>
-			<el-footer>Footer</el-footer>
+			<el-footer class="layout-footer"> 版权所有©2025 northal.online 鄂ICP备2024068459号-2 </el-footer>
 		</el-container>
 	</el-container>
 </template>
@@ -67,5 +67,13 @@ const layoutAsideBarStyle = computed(() => {
 	flex-direction: column;
 	flex: 1;
 	width: 100%;
+}
+
+.layout-footer {
+	--el-footer-height: 40px;
+	text-align: center;
+	line-height: var(--el-footer-height);
+	font-size: 12px;
+	background-color: var(--background-color);
 }
 </style>
