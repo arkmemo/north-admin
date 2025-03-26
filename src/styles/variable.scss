@@ -3,6 +3,13 @@
 	--background-color: #ffffff; /* 背景色 */
 	--sub-background-color: #f0f2f5; /* 次背景色 */
 	--text-color: #333333; /* 文本色 */
+
+	--menu-background-color: #ffffff; /* 菜单背景色 */
+	--menu-hover-background-color: #f5f7fa; /* 菜单悬浮背景色 */
+	--menu-active-background-color: #409eff; /* 菜单选中背景色 */
+	--menu-text-color: #303133; /* 菜单文字色 */
+	--menu-active-text-color: #ffffff; /* 菜单选中文字色 */
+	--menu-active-border-color: #067aedc9; /* 菜单选中边框色 */
 }
 
 .dark {
@@ -10,4 +17,20 @@
 	--background-color: #121212; /* 背景色 */
 	--sub-background-color: #1e1e1e; /* 次背景色 */
 	--text-color: #e0e0e0; /* 文本色 */
+
+	--menu-background-color: #121212; /* 菜单背景色 */
+	--menu-hover-background-color: #1e1e1e; /* 菜单悬浮背景色 */
+	--menu-active-background-color: #1e90ff; /* 菜单选中背景色 */
+	--menu-text-color: #e0e0e0; /* 菜单文字色 */
+	--menu-active-text-color: #ffffff; /* 菜单选中文字色 */
+	--menu-active-border-color: #035bb3; /* 菜单选中边框色 */
+}
+
+.dark-menu-mixed {
+	--menu-background-color: #2c2f33; /* 菜单背景色 */
+	--menu-hover-background-color: #3a3d41; /* 菜单悬浮背景色 */
+	--menu-active-background-color: #409eff; /* 菜单选中背景色 */
+	--menu-text-color: #e5eaf3; /* 菜单文字色 */
+	--menu-active-text-color: #ffffff; /* 菜单选中文字色 */
+	--menu-active-border-color: #0368d4; /* 菜单选中边框色 */
 }

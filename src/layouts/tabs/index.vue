@@ -5,6 +5,7 @@ const route = useRoute()
 const router = useRouter()
 const currentTab = ref(route.path)
 const store = useTabsStore()
+const globalStore = useGlobalSettingStore()
 
 const tabsList = computed(() => store.tabsList)
 
@@ -33,7 +34,7 @@ const handleTabClick = (tab: TabsPaneContext) => {
 </script>
 
 <template>
-	<div class="tabs-container">
+	<div class="tabs-container" v-if="globalStore.state.hasTabs">
 		<el-tabs
 			v-model="currentTab"
 			:closable="tabsList.length > 1"

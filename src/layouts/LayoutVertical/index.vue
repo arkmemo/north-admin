@@ -46,7 +46,9 @@ const layoutAsideBarStyle = computed(() => {
 			<el-main class="layout-container_sub-main">
 				<LayoutMain></LayoutMain>
 			</el-main>
-			<el-footer class="layout-footer"> 版权所有©2025 northal.online 鄂ICP备2024068459号-2 </el-footer>
+			<el-footer class="layout-footer" v-if="globalSettingStore.state.hasFooter">
+				版权所有©2025 northal.online 鄂ICP备2024068459号-2
+			</el-footer>
 		</el-container>
 	</el-container>
 </template>
@@ -54,13 +56,17 @@ const layoutAsideBarStyle = computed(() => {
 <style lang="scss" scoped>
 .layout-container {
 	height: 100%;
+
+	&_sub {
+		flex-direction: column;
+	}
 }
 
 .layout-aside {
 	height: 100%;
 	transition: all 0.3s;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-	background-color: var(--background-color);
+	background-color: var(--menu-background-color);
 }
 
 .layout-footer {

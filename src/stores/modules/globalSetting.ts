@@ -23,9 +23,6 @@ export const useGlobalSettingStore = defineStore(
 			// 侧边栏颜色
 			sideBarColor: '#1C1E23',
 
-			// 是否显示右侧菜单
-			rightSideBar: false,
-
 			// 是否暗黑模式
 			isDark: JSON.parse(localStorage.getItem($globalSettingId)!)?.state?.isDark ?? isDark.value,
 
@@ -37,16 +34,22 @@ export const useGlobalSettingStore = defineStore(
 
 			// 是否显示页脚
 			hasFooter: true,
+
+			// 深色菜单
+			isDarkMenu: false,
 		})
 
 		// 菜单是否垂直布局
 		const isVertical = () => state.layoutMode === 'vertical'
 
 		watch(
-			() => state.sideBarColor,
-			(val: string) => {
-				console.log('sideBarColor', val)
-				document.documentElement.style.setProperty(ScssVariableEnum.BG_COLOR, val)
+			() => state.isDarkMenu,
+			(val: boolean) => {
+				if (val) {
+					document.documentElement.classList.add('dark-menu-mixed')
+				} else {
+					document.documentElement.classList.remove('dark-menu-mixed')
+				}
 			},
 			{
 				immediate: true,

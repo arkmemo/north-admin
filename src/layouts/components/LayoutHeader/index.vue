@@ -1,6 +1,7 @@
 <script setup lang="tsx">
 import LayoutUser from '../LayoutUser/index.vue'
 import LayoutTheme from '../LayoutTheme/index.vue'
+import LayoutSetting from '../LayoutSetting/index.vue'
 import { useGlobalSettingStore } from '~/stores'
 
 const globalSettingStore = useGlobalSettingStore()
@@ -19,6 +20,7 @@ const handleChangeMenu = () => {
 		<div flex-center>
 			<LayoutUser />
 			<LayoutTheme />
+			<LayoutSetting />
 		</div>
 	</el-header>
 </template>

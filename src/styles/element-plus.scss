@@ -52,6 +52,35 @@
 .layout-aside {
 	.el-menu {
 		border: 0;
-		background-color: var(--background-color);
+		background-color: var(--menu-background-color);
+		padding: 0 8px;
+
+		&-item,
+		.el-sub-menu__title {
+			border-radius: 4px;
+			color: var(--menu-text-color);
+			&:hover {
+				background-color: var(--menu-hover-background-color);
+				color: var(--menu-text-color);
+			}
+		}
+
+		&-item.is-active {
+			background-color: var(--menu-active-background-color);
+			color: var(--menu-active-text-color);
+			position: relative;
+
+			&::before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 4px;
+				height: 100%;
+				background-color: var(--menu-active-border-color);
+				border-radius: 2px;
+			}
+		}
 	}
 }
