@@ -1,9 +1,11 @@
 <script setup lang="tsx">
-import { TabPaneName } from 'element-plus'
+import type { TabPaneName, TabsPaneContext } from 'element-plus'
 
 const route = useRoute()
+const router = useRouter()
 const currentTab = ref(route.path)
 const store = useTabsStore()
+const globalStore = useGlobalSettingStore()
 
 const tabsList = computed(() => store.tabsList)
 
@@ -25,37 +27,71 @@ watch(
 const handleTabRemove = (path: TabPaneName) => {
 	store.removeTab(String(path))
 }
+
+const handleTabClick = (tab: TabsPaneContext) => {
+	router.push(String(tab.paneName))
+}
 </script>
 
 <template>
-	<el-tabs v-model="currentTab" px-20px :closable="tabsList.length > 1" @tab-remove="handleTabRemove">
-		<el-tab-pane v-for="tab in tabsList" :key="tab.path" :label="tab.title" :name="tab.path">
-			<template #label>
-				<span flex-center>
-					<Icon :icon="tab.icon"></Icon>
-					<router-link :to="tab.path">
-						<span ml-6px>{{ tab.title }}</span>
-					</router-link>
-				</span>
-			</template>
-		</el-tab-pane>
-	</el-tabs>
+	<div class="tabs-container" v-if="globalStore.state.hasTabs">
+		<el-tabs
+			v-model="currentTab"
+			:closable="tabsList.length > 1"
+			@tab-remove="handleTabRemove"
+			@tab-click="handleTabClick"
+			type="card"
+			tab-position="top"
+		>
+			<el-tab-pane v-for="tab in tabsList" :key="tab.path" :label="tab.title" :name="tab.path">
+				<template #label>
+					<span class="tab-label" flex-center>
+						<Icon :icon="tab.icon" class="tab-icon"></Icon>
+						<span>{{ tab.title }}</span>
+					</span>
+				</template>
+			</el-tab-pane>
+		</el-tabs>
+	</div>
 </template>
 
 <style lang="scss" scoped>
-.el-tabs {
-	--el-tabs-header-height: 36px;
+.tabs-container {
+	background-color: var(--background-color);
+
+	.el-tabs {
+		--el-tabs-header-height: 40px;
+		--el-tabs-card-height: 36px;
+
+		.el-tabs__item {
+			font-size: 14px;
+			color: var(--el-text-color-secondary);
+			padding: 8px 16px;
+			// border-radius: 4px;
+			transition: all 0.3s;
+
+			&:hover {
+				background-color: var(--el-color-primary-light-8);
+				color: var(--el-color-primary);
+			}
+
+			&.is-active {
+				background-color: var(--el-color-primary-light-7);
+				color: var(--el-color-primary-dark-2);
+				font-weight: bold;
+			}
+		}
+	}
 }
 
-:deep(.el-tabs__item.is-active) {
-	color: var(--north-bg-color);
-}
-:deep(.el-tabs__item:hover) {
-	color: var(--north-bg-color);
-	opacity: 0.8;
+.tab-label {
+	display: flex;
+	align-items: center;
+	gap: 6px;
 }
 
-:deep(.el-tabs__active-bar) {
-	background-color: var(--north-bg-color);
+.tab-icon {
+	font-size: 16px;
+	color: var(--el-color-primary);
 }
 </style>

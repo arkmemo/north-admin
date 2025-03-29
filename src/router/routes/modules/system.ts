@@ -15,6 +15,18 @@ export const MenuRoutes: RouteRecordRaw[] = [
 		},
 		children: [
 			{
+				path: '/system/department',
+				name: 'system-department',
+				meta: {
+					title: '部门管理',
+					icon: 'material-symbols:list-alt-add-outline',
+					isHide: false,
+					orderNo: 1,
+					isKeepAlive: false,
+				},
+				component: () => import('~/pages/system/department/index.vue'),
+			},
+			{
 				path: '/system/menu',
 				name: 'system-menu',
 				meta: {
@@ -33,7 +45,7 @@ export const MenuRoutes: RouteRecordRaw[] = [
 					title: '角色管理',
 					icon: 'eos-icons:role-binding',
 					isHide: false,
-					orderNo: 2,
+					orderNo: 3,
 					isKeepAlive: false,
 				},
 				component: () => import('~/pages/system/role/index.vue'),

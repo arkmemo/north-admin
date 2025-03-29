@@ -3,6 +3,7 @@ import { ResponseMiddleware } from '~/api/types/middleware'
 import { useErrorMiddlewareRunner } from '../../middlewareRunner'
 import { globalErrorMiddleware } from '../error/globalMiddle'
 import { BusinessLogicError } from '../../businessLogicError'
+import { unauthorizedMiddleware } from '../error/unauthorizedMiddleware'
 
 // 排除data
 type AxiosResponseOmitData = Omit<AxiosResponse, 'data'>
@@ -23,6 +24,7 @@ export const parseDataMiddleware: ResponseMiddleware = async (response, next) =>
 		// TODO: 业务逻辑错误处理， 待自定义
 		const runner = await useErrorMiddlewareRunner(new BusinessLogicError(data.message, response), [
 			globalErrorMiddleware,
+			unauthorizedMiddleware,
 		])
 		return runner
 	}

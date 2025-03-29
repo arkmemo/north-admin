@@ -5,61 +5,24 @@
 	}
 }
 
+.el-main {
+	--el-main-padding: 0px !important;
+}
+
 .el-tabs {
 	.el-tabs__header {
 		margin-bottom: 0;
 	}
 }
 
-.el-menu {
-	border: none !important;
-	background-color: transparent !important;
-
-	.el-menu-item,
-	.el-sub-menu {
-		user-select: none;
-		border: none !important;
-		border-radius: 6px;
-	}
-
-	.el-menu-item,
-	.el-sub-menu,
-	.el-sub-menu__title {
-		color: #a9a9a9;
-	}
+.el-tabs--card > .el-tabs__header .el-tabs__nav {
+	border-radius: 0 !important;
 }
 
-.el-menu--horizontal {
-	--el-menu-text-color: #a9a9a9;
-}
-
-.el-menu--popup-container {
-	border-radius: 10px;
-
-	.el-menu--popup {
-		padding: 10px;
-		border-radius: 10px;
-
-		li[role='menuitem'] {
-			margin: 4px 0 !important;
-		}
-	}
-}
-
-html:not(.dark) {
-	.el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
-		color: #fff;
-		background-color: var(--north-bg-color) !important;
-	}
-
-	.el-menu--horizontal .el-sub-menu .el-sub-menu__title {
-		border-radius: 6px;
-	}
-
-	.el-menu--horizontal .el-sub-menu:hover > .el-sub-menu__title {
-		color: #fff;
-		background-color: var(--north-bg-color) !important;
-	}
+.el-card {
+	--el-card-padding: 12px;
+	--el-card-bg-color: var(--background-color) !important;
+	--el-card-border-radius: 0px;
 }
 
 .el-dialog {
@@ -83,5 +46,41 @@ html:not(.dark) {
 		border-top: 1px solid #e0e0e0;
 		padding: 16px;
 		margin-top: 24px;
+	}
+}
+
+.layout-aside {
+	.el-menu {
+		border: 0;
+		background-color: var(--menu-background-color);
+		padding: 0 8px;
+
+		&-item,
+		.el-sub-menu__title {
+			border-radius: 4px;
+			color: var(--menu-text-color);
+			&:hover {
+				background-color: var(--menu-hover-background-color);
+				color: var(--menu-text-color);
+			}
+		}
+
+		&-item.is-active {
+			background-color: var(--menu-active-background-color);
+			color: var(--menu-active-text-color);
+			position: relative;
+
+			&::before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 4px;
+				height: 100%;
+				background-color: var(--menu-active-border-color);
+				border-radius: 2px;
+			}
+		}
 	}
 }

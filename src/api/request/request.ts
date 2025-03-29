@@ -15,17 +15,6 @@ export class HttpClient extends BaseMiddleware {
 	 */
 	private readonly options!: AxiosRequestConfig
 
-	// private _requestMiddlewares: Middleware[] = []
-	// private _responseMiddlewares: Middleware[] = []
-
-	// public set requestMiddlewares(value: Middleware[]) {
-	// 	this._requestMiddlewares = value
-	// }
-
-	// public set responseMiddlewares(value: Middleware[]) {
-	// 	this._responseMiddlewares = value
-	// }
-
 	constructor(options: AxiosRequestConfig) {
 		super()
 		this.options = options
@@ -52,20 +41,6 @@ export class HttpClient extends BaseMiddleware {
 				// const { data, status } = response
 
 				return await super.runResponseMiddlewares(response)
-
-				// 为200说明axios请求成功
-				// if (status === 200) {
-				// 	// 判断业务逻辑
-				// 	if (data.code === 200) {
-				// 		// 业务逻辑成功
-				// 		return data
-				// 	} else {
-				// 		// 业务逻辑失败
-				// 		return Promise.reject(data)
-				// 	}
-				// }
-
-				// return data
 			},
 			async (error) => {
 				// 超出 2xx 范围的状态码都会触发该函数。

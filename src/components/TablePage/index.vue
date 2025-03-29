@@ -2,6 +2,8 @@
 interface Props {
 	data: T[]
 	total: number
+	loading: boolean
+	className?: string
 }
 
 const page = defineModel('page', {
@@ -14,7 +16,7 @@ const limit = defineModel('limit', {
 })
 const attrs = useAttrs()
 const emits = defineEmits<{
-	change: [number, number]
+	change: [{ page: number; limit: number }]
 }>()
 withDefaults(defineProps<Props>(), {
 	data: () => [],
@@ -22,13 +24,16 @@ withDefaults(defineProps<Props>(), {
 })
 
 watchEffect(() => {
-	emits('change', page.value, limit.value)
+	emits('change', {
+		page: page.value,
+		limit: limit.value,
+	})
 })
 </script>
 
 <template>
-	<div>
-		<el-table :data="data" v-bind="attrs" height="340">
+	<div :class="className">
+		<el-table :data="data" v-loading="loading" v-bind="attrs">
 			<slot />
 		</el-table>
 		<el-pagination

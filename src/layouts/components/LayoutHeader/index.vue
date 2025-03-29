@@ -1,6 +1,7 @@
 <script setup lang="tsx">
 import LayoutUser from '../LayoutUser/index.vue'
 import LayoutTheme from '../LayoutTheme/index.vue'
+import LayoutSetting from '../LayoutSetting/index.vue'
 import { useGlobalSettingStore } from '~/stores'
 
 const globalSettingStore = useGlobalSettingStore()
@@ -19,13 +20,16 @@ const handleChangeMenu = () => {
 		<div flex-center>
 			<LayoutUser />
 			<LayoutTheme />
+			<LayoutSetting />
 		</div>
 	</el-header>
 </template>
 
 <style lang="scss" scoped>
 .layout-header {
-	@apply: flex-between h-50px;
-	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12);
+	@apply: flex-between bg-backgroundColor;
+	height: 50px;
+	box-shadow: 2px 0 4px 0 rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid var(--el-border-color-light);
 }
 </style>

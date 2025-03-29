@@ -5,7 +5,7 @@ export const globalErrorMiddleware: ErrorHandlerMiddleware = async (error, next)
 
 	if (error.name === 'BusinessLogicError') {
 		console.error('捕获到业务逻辑错误:', error.message)
-		ElMessage.error(`业务逻辑错误: ${error.message}`)
+		// ElMessage.error(`业务逻辑错误: ${error.message}`)
 	} else {
 		if (error.response?.status !== 404) {
 			console.error('捕获到非业务逻辑错误:', error)

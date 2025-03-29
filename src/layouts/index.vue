@@ -7,12 +7,16 @@ const globalSettingStore = useGlobalSettingStore()
 </script>
 
 <template>
-	<div class="w-full h-full">
+	<div class="layout w-full h-full">
 		<component :is="globalSettingStore.isVertical() ? LayoutVertical : LayoutHorizontal" />
 		<setting-drawer></setting-drawer>
 	</div>
 </template>
 
 <style lang="scss" scoped>
-// @import 'index.scss';
+.layout {
+	.el-main {
+		--el-main-padding: 0;
+	}
+}
 </style>

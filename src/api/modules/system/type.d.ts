@@ -85,3 +85,12 @@ interface EntityRoleEntity {
 	name?: string
 	updatedAt?: string
 }
+
+interface EntityDepartmentTree {
+	children: EntityDepartmentTree[]
+	createdAt: string
+	id: number
+	name: string
+	pid: number
+	updatedAt: string
+}

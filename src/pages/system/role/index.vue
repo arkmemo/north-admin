@@ -1,7 +1,7 @@
 <template>
 	<div class="page-wrapper">
 		<div class="page-wrapper_body">
-			<el-card shadow="never" :body-style="{ padding: '24px' }" mt-16px>
+			<el-card shadow="never" :body-style="{ padding: '24px' }">
 				<template #header>
 					<el-button type="primary" @click="handleCreate">
 						<template #icon>
@@ -50,6 +50,9 @@
 					<el-form-item label="角色名称" prop="name">
 						<el-input v-model="formData.name"></el-input>
 					</el-form-item>
+					<el-form-item label="角色代码" prop="code">
+						<el-input v-model="formData.code"></el-input>
+					</el-form-item>
 					<el-form-item label="权限配置" prop="menuIds">
 						<el-tree-select
 							v-model="formData.menuIds"
@@ -97,18 +100,23 @@ const columns = [
 		minWidth: 150,
 	},
 	{
-		prop: 'createdAt',
-		label: '创建人',
-		minWidth: 150,
-	},
-	{
-		prop: 'updatedAt',
-		label: '更新时间',
+		prop: 'code',
+		label: '角色代码',
 		minWidth: 150,
 	},
 	{
 		prop: 'description',
 		label: '描述',
+		minWidth: 150,
+	},
+	{
+		prop: 'createdAt',
+		label: '创建时间',
+		minWidth: 150,
+	},
+	{
+		prop: 'updatedAt',
+		label: '更新时间',
 		minWidth: 150,
 	},
 ]
@@ -126,6 +134,7 @@ const initDialog = () => {
 const dialog = ref(initDialog())
 const initFormData = () => {
 	return {
+		id: 0,
 		name: '',
 		description: '',
 		menuIds: [],
@@ -136,6 +145,7 @@ const formData = ref(initFormData())
 const rules = {
 	name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
 	menuIds: [{ required: true, message: '请设置角色权限', trigger: 'blur' }],
+	code: [{ required: true, message: '请输入角色代码', trigger: 'blur' }],
 }
 const handleBeforeClose = () => {
 	formData.value = initFormData()
@@ -185,10 +195,13 @@ const handleDelete = (row: EntityMenuEntity) => {
 }
 const handleEdit = (row: EntityMenuEntity) => {
 	dialog.value.title = '编辑角色'
+	console.log(row, 'row', formData.value)
+
 	for (let key in formData.value) {
-		formData.value[key] = row[key]
+		formData.value[key] = row[key as keyof EntityMenuEntity]
 	}
-	formData.value.id = row.id
+
+	formData.value.id = row.id!
 	dialog.value.visible = true
 }
 const menuTreeData = ref<EntityMenuEntity[]>([])

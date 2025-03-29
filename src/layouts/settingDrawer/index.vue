@@ -41,7 +41,7 @@ const handleClickChangeLayoutMode = (mode: string) => {
 			</el-card>
 		</div>
 
-		<div pt-20px>
+		<div class="pt-20px space-y-10px">
 			<el-divider class="divider" content-position="center">
 				<div flex-center>
 					<Icon icon="fluent:layout-column-two-split-right-20-filled" text-20px></Icon>
@@ -49,8 +49,39 @@ const handleClickChangeLayoutMode = (mode: string) => {
 				</div>
 			</el-divider>
 			<div flex-between>
-				<div>主题颜色</div>
+				<div class="text-14px w-80px text-right">主题颜色</div>
 				<el-color-picker v-model="store.state.sideBarColor" />
+			</div>
+
+			<div class="flex-between">
+				<div class="text-14px w-80px text-right">深色菜单</div>
+				<el-switch v-model="store.state.isDarkMenu" />
+			</div>
+		</div>
+
+		<div class="pt-20px space-y-10px">
+			<el-divider class="divider" content-position="center">
+				<div flex-center>
+					<Icon icon="fluent:layout-column-two-split-right-20-filled" text-20px></Icon>
+					<span ml-6px>布局样式</span>
+				</div>
+			</el-divider>
+
+			<div class="flex-between">
+				<div class="text-14px w-80px text-right">显示面包屑</div>
+				<el-switch v-model="store.state.hasBreadcrumb" />
+			</div>
+
+			<!-- hasTabs -->
+			<div class="flex-between">
+				<div class="text-14px w-80px text-right">显示标签页</div>
+				<el-switch v-model="store.state.hasTabs" />
+			</div>
+
+			<!-- hasFooter -->
+			<div class="flex-between">
+				<div class="text-14px w-80px text-right">显示页脚</div>
+				<el-switch v-model="store.state.hasFooter" />
 			</div>
 		</div>
 	</el-drawer>

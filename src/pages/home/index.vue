@@ -55,15 +55,13 @@ const handleClick = (row: any) => {
 
 <template>
 	<el-card>
-		<h1>Home</h1>
-		<p>Home page content</p>
 		<table-page
 			:data="data"
 			:total="data.length"
-			@change="change"
 			v-model:page="params.page"
 			v-model:limit="params.limit"
 			:border="true"
+			max-height="calc(100vh - 198px)"
 		>
 			<el-table-column prop="date" label="日期" width="180" />
 			<el-table-column prop="name" label="姓名" width="180" />

@@ -22,6 +22,7 @@ interface IList<T> {
 interface IPage {
 	page: number
 	limit: number
+	keywords?: string
 }
 interface TableParams<T> {
 	page: number
