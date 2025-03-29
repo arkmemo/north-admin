@@ -50,6 +50,18 @@ export const MenuRoutes: RouteRecordRaw[] = [
 				},
 				component: () => import('~/pages/system/role/index.vue'),
 			},
+			{
+				path: '/system/employee',
+				name: 'system-employee',
+				meta: {
+					title: '员工管理',
+					icon: 'material-symbols:person-book',
+					isHide: false,
+					orderNo: 4,
+					isKeepAlive: false,
+				},
+				component: () => import('~/pages/system/employee/index.vue'),
+			},
 		],
 	},
 ]
