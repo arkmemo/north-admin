@@ -61,6 +61,7 @@
 								label: 'label',
 								value: 'path',
 								children: 'children',
+								emitPath: false,
 							}"
 							placeholder="组件路径"
 							style="width: 100%"
@@ -261,14 +262,8 @@ const menuTreeData = computed(() => {
 	return [{ id: 0, title: '根目录', children: [] }, ...tableData.value]
 })
 const handleComponentChange = (value: CascaderValue) => {
-	if (!Array.isArray(value)) {
-		return
-	}
-	if (value && value.length > 0) {
-		// 获取最后选择的路径
-		const selectedPath = value[value.length - 1]
-		// 更新路由路径
-		formData.value.path = '/' + selectedPath
+	if (typeof value === 'string') {
+		formData.value.path = value
 	}
 }
 const dynamicRoutes = ref<IComponentMap[]>([])
