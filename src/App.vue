@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+</script>
 
 <template>
-	<el-config-provider>
+	<el-config-provider :locale="zhCn">
 		<Suspense>
 			<!-- 具有深层异步依赖的组件 -->
 			<router-view></router-view>

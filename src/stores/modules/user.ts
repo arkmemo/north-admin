@@ -32,6 +32,7 @@ export const useUserStore = defineStore(
 				.then(() => {
 					token.value = undefined
 					userInfo.value = undefined
+					localStorage.clear()
 				})
 				.finally(() => {
 					router.replace('/login')

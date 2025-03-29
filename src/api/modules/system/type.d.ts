@@ -94,3 +94,47 @@ interface EntityDepartmentTree {
 	pid: number
 	updatedAt: string
 }
+interface ICreateMenuParams {
+	title: string
+	menuType: string
+	name: string
+	path: string
+	icon: string
+	sort: number
+	status: number
+	parentId: number
+	id?: number
+}
+interface ICreateRoleParams {
+	name: string
+	code: string
+	description: string
+	menuIds: number[]
+	id?: number
+}
+interface ICreateEmployeeParams {
+	username: string
+	password: string
+	phone: string
+	roleIds: number[]
+	departmentId: string
+	id?: number
+}
+interface IEmployeeList {
+	id: number
+	username: string
+	phone: string
+	status: number
+	statusDesc: string
+	roles: {
+		id: number
+		name: string
+	}[]
+	departmentId: number
+	createdAt: string
+	updatedAt: string
+}
+interface IAllRoleList {
+	label: string
+	value: number
+}

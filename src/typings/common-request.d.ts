@@ -25,8 +25,6 @@ interface IPage {
 	keywords?: string
 }
 interface TableParams<T> {
-	page: number
-	limit: number
 	total: number
 	loading: boolean
 	data: T[]

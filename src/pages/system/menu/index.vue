@@ -104,7 +104,7 @@
 
 <script lang="ts" setup>
 import { fetchPostCreateMenu, fetchGetMenuTree, fetchDeleteMenu, fetchUpdateMenu } from '~/api/modules'
-import { RadioFilter } from '~/utils'
+import { RadioFilter, hasOwnProperty } from '~/utils'
 const tableData = ref<EntityMenuEntity[]>([])
 const columns = [
 	{
@@ -160,7 +160,7 @@ const initDialog = () => {
 	}
 }
 const dialog = ref(initDialog())
-const initFormData = () => {
+const initFormData = (): ICreateMenuParams => {
 	return {
 		title: '',
 		menuType: 'M',
@@ -223,7 +223,9 @@ const handleDelete = (row: EntityMenuEntity) => {
 const handleEditMenu = (row: EntityMenuEntity) => {
 	dialog.value.title = '编辑菜单'
 	for (let key in formData.value) {
-		formData.value[key] = row[key]
+		if (hasOwnProperty(formData.value, key) && hasOwnProperty(row, key)) {
+			formData.value[key] = row[key as keyof typeof row]
+		}
 	}
 	formData.value.id = row.id
 	dialog.value.visible = true

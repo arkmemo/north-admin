@@ -84,14 +84,16 @@ import {
 	fetchUpdateRule,
 	fetchGetMenuTree,
 } from '~/api/modules'
-import { RadioFilter } from '~/utils'
+import { RadioFilter, hasOwnProperty } from '~/utils'
 
 const table = reactive<TableParams<EntityRoleEntity>>({
-	page: 1,
-	limit: 10,
 	total: 0,
 	loading: false,
 	data: [],
+})
+const tableSearchParams = reactive({
+	page: 1,
+	limit: 10,
 })
 const columns = [
 	{
@@ -132,7 +134,7 @@ const initDialog = () => {
 	}
 }
 const dialog = ref(initDialog())
-const initFormData = () => {
+const initFormData = (): ICreateRoleParams => {
 	return {
 		id: 0,
 		name: '',
@@ -141,7 +143,7 @@ const initFormData = () => {
 		code: '',
 	}
 }
-const formData = ref(initFormData())
+const formData = ref<ICreateRoleParams>(initFormData())
 const rules = {
 	name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
 	menuIds: [{ required: true, message: '请设置角色权限', trigger: 'blur' }],
@@ -156,11 +158,7 @@ const handleCreate = () => {
 }
 const getTableList = () => {
 	table.loading = true
-	const params = {
-		page: table.page,
-		limit: table.limit,
-	}
-	fetchGetRuleData(params)
+	fetchGetRuleData(tableSearchParams)
 		.then((res) => {
 			table.data = res.data.list
 		})
@@ -193,15 +191,15 @@ const handleDelete = (row: EntityMenuEntity) => {
 		})
 	})
 }
-const handleEdit = (row: EntityMenuEntity) => {
+const handleEdit = (row: ICreateRoleParams) => {
 	dialog.value.title = '编辑角色'
-	console.log(row, 'row', formData.value)
-
 	for (let key in formData.value) {
-		formData.value[key] = row[key as keyof EntityMenuEntity]
+		if (hasOwnProperty(formData.value, key) && hasOwnProperty(row, key)) {
+			formData.value[key] = row[key as keyof ICreateRoleParams]
+		}
 	}
 
-	formData.value.id = row.id!
+	formData.value.id = row.id
 	dialog.value.visible = true
 }
 const menuTreeData = ref<EntityMenuEntity[]>([])
