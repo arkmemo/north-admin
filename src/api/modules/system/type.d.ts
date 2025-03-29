@@ -104,6 +104,8 @@ interface ICreateMenuParams {
 	status: number
 	parentId: number
 	id?: number
+	isHidden: 0 | 1
+	component: string
 }
 interface ICreateRoleParams {
 	name: string

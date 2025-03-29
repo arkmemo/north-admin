@@ -47,18 +47,25 @@
 				:before-close="handleBeforeClose"
 			>
 				<el-form ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="left">
+					<el-form-item label="菜单类型" prop="menuType">
+						<el-segmented v-model="formData.menuType" :options="menuTypeOptions" />
+					</el-form-item>
 					<el-form-item label="菜单标题" prop="title">
 						<el-input v-model="formData.title"></el-input>
 					</el-form-item>
-					<el-form-item label="菜单类型" prop="menuType">
-						<el-select v-model="formData.menuType">
-							<el-option
-								v-for="item in menuTypeOptions"
-								:key="item.value"
-								:label="item.label"
-								:value="item.value"
-							></el-option>
-						</el-select>
+					<el-form-item label="组件路径" v-if="formData.menuType !== 'M'">
+						<el-cascader
+							v-model="formData.component"
+							:options="dynamicRoutes"
+							:props="{
+								label: 'label',
+								value: 'path',
+								children: 'children',
+							}"
+							placeholder="组件路径"
+							style="width: 100%"
+							@change="handleComponentChange"
+						/>
 					</el-form-item>
 					<el-form-item label="路由名称" prop="name">
 						<el-input v-model="formData.name"></el-input>
@@ -92,6 +99,12 @@
 							inactive-text="禁用"
 						/>
 					</el-form-item>
+					<el-form-item label="是否展示" prop="isHidden">
+						<el-radio-group v-model="formData.isHidden">
+							<el-radio :value="0">展示</el-radio>
+							<el-radio :value="1">隐藏</el-radio>
+						</el-radio-group>
+					</el-form-item>
 				</el-form>
 				<template #footer>
 					<el-button @click="handleBeforeClose">取消</el-button>
@@ -105,6 +118,13 @@
 <script lang="ts" setup>
 import { fetchPostCreateMenu, fetchGetMenuTree, fetchDeleteMenu, fetchUpdateMenu } from '~/api/modules'
 import { RadioFilter, hasOwnProperty } from '~/utils'
+import type { CascaderValue } from 'element-plus'
+interface IComponentMap {
+	label: string
+	value: string
+	path: string
+	children: IComponentMap[]
+}
 const tableData = ref<EntityMenuEntity[]>([])
 const columns = [
 	{
@@ -130,6 +150,11 @@ const columns = [
 	{
 		prop: 'redirect',
 		label: '重定向',
+		minWidth: 150,
+	},
+	{
+		prop: 'component',
+		label: '组件路径',
 		minWidth: 150,
 	},
 	{
@@ -170,6 +195,8 @@ const initFormData = (): ICreateMenuParams => {
 		sort: 0,
 		status: 1,
 		parentId: 0,
+		isHidden: 0,
+		component: '',
 	}
 }
 const formData = ref(initFormData())
@@ -233,8 +260,55 @@ const handleEditMenu = (row: EntityMenuEntity) => {
 const menuTreeData = computed(() => {
 	return [{ id: 0, title: '根目录', children: [] }, ...tableData.value]
 })
+const handleComponentChange = (value: CascaderValue) => {
+	if (!Array.isArray(value)) {
+		return
+	}
+	if (value && value.length > 0) {
+		// 获取最后选择的路径
+		const selectedPath = value[value.length - 1]
+		// 更新路由路径
+		formData.value.path = '/' + selectedPath
+	}
+}
+const dynamicRoutes = ref<IComponentMap[]>([])
+const allVueFile = import.meta.glob('~/pages/**/*.vue', { eager: true })
+const formatVueFiles = () => {
+	const files = Object.keys(allVueFile)
+	const tree: IComponentMap[] = []
+
+	files.forEach((file) => {
+		// 移除 ~/pages 前缀和 .vue 后缀，以及外层的 src 和 pages 目录
+		const path = file.replace('/src/pages/', '').replace('.vue', '')
+		const parts = path.split('/')
+		// 跳过前两层目录（src 和 pages）
+		const filteredParts = parts
+		let current = tree
+
+		filteredParts.forEach((part, index) => {
+			if (!part) return
+
+			const existing = current.find((item) => item.value === part)
+			if (existing) {
+				current = existing.children
+			} else {
+				const newNode = {
+					label: part,
+					value: part,
+					path: filteredParts.slice(0, index + 1).join('/'),
+					children: [],
+				}
+				current.push(newNode)
+				current = newNode.children
+			}
+		})
+	})
+	dynamicRoutes.value = tree
+}
+
 onMounted(() => {
 	getMenuData()
+	formatVueFiles()
 })
 </script>
 
