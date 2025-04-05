@@ -1,12 +1,17 @@
-import { fetchAuthLogin, fetchAuthLogout, fetchEmployeeInfo } from '~/api/modules'
+import { fetchAuthLogin, fetchAuthLogout, fetchEmployeeInfo, fetchGetMenuTree } from '~/api/modules'
 import { router } from '~/router'
+import Layout from '~/layouts/index.vue'
+import { formatMenuToRoute } from '~/utils'
 
 export const useUserStore = defineStore(
 	'useUserStore',
 	() => {
 		//用户信息
 		const userInfo = ref<IEmployeeEntity>()
-
+		//菜单树
+		const menuTreeData = ref<EntityMenuEntity[]>(
+			localStorage.getItem('useUserStore') ? JSON.parse(localStorage.getItem('useUserStore')!)?.menuTreeData : [],
+		)
 		const token = ref<string>()
 
 		//登录
@@ -45,11 +50,25 @@ export const useUserStore = defineStore(
 				userInfo.value = res.data
 			})
 		}
+		const handleRoutes = async () => {
+			const baseRoute = {
+				path: '/',
+				component: Layout,
+				children: [],
+			}
+
+			const res = await fetchGetMenuTree()
+			const routes = formatMenuToRoute(res.data)
+			baseRoute.children = routes
+			menuTreeData.value = baseRoute
+		}
 		return {
 			userInfo,
 			token,
 			login,
 			logout,
+			menuTreeData,
+			handleRoutes,
 		}
 	},
 	{

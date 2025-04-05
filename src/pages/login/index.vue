@@ -218,7 +218,8 @@ const handleSubmit = async () => {
 			// 模拟API请求
 			await login(formData.value)
 			ElMessage.success('登录成功')
-			router.push('/home')
+			// router.push('/home')
+			router.push('/system/menu')
 		} catch (error) {
 			ElMessage.error('登录失败，请检查账号密码')
 		} finally {

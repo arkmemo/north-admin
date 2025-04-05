@@ -1,57 +1,23 @@
 interface EntityMenuEntity {
 	children?: EntityMenuEntity[]
-	/**
-	 * 按钮权限字符（仅按钮需要）
-	 */
-	code?: string
-	/**
-	 * 组件路径（仅菜单需要）
-	 */
-	component?: string
-	createdAt?: string
-	/**
-	 * 目录 & 菜单的图标
-	 */
-	icon?: string
-	id?: number
-	/**
-	 * 是否缓存（仅菜单需要）
-	 */
-	isCache?: number
-	/**
-	 * 是否外链
-	 */
-	isFrame?: number
-	/**
-	 * 菜单类型（M: 目录, C: 菜单, F: 按钮）
-	 */
-	menuType: MenuType
-	/**
-	 * 菜单唯一标识
-	 */
-	name?: string
-	/**
-	 * 父级菜单 ID
-	 */
-	parentId?: number
-	/**
-	 * 路由路径（目录 & 菜单需要）
-	 */
-	path?: string
-	permissions?: EntityPermissionEntity[]
-	/**
-	 * 排序
-	 */
-	sort?: number
-	/**
-	 * 状态（0: 禁用, 1: 启用）
-	 */
-	status?: number
-	/**
-	 * 菜单标题
-	 */
+	id: number
+	name: string
+	path: string
+	redirect: string
+	icon: string
 	title: string
-	updatedAt?: string
+	component: string
+	menuType: string
+	parentId: number
+	sort: number
+	status: number
+	isFrame: number
+	isCache: number
+	isHidden: number
+	isHome: number
+	code: string
+	createdAt: string
+	updatedAt: string
 }
 
 /**
